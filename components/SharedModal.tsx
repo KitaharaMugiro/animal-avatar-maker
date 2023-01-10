@@ -65,10 +65,13 @@ export default function SharedModal({
                 className="absolute"
               >
                 <Image
-                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                    }/image/upload/h_512,w_512,f_auto,q_auto/${currentImage.public_id}.${currentImage.format}`}
-                  width={512}
-                  height={512}
+                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_512/${currentImage.public_id}.${currentImage.format}`}
+                  width={720}
+                  height={480}
+                  sizes="(max-width: 640px) 100vw,
+                  (max-width: 1280px) 50vw,
+                  (max-width: 1536px) 33vw,
+                  25vw"
                   priority
                   alt="avatar"
                   onLoadingComplete={() => setLoaded(true)}

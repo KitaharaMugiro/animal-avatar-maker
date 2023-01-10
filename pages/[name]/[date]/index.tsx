@@ -1,9 +1,10 @@
-import type { GetStaticPaths, NextPage } from 'next'
+import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef } from 'react'
+import { CrouselContainer } from '../../../components/CarouselContainer'
 import Modal from '../../../components/Modal'
 import cloudinary from '../../../utils/cloudinary'
 import getBase64ImageUrl from '../../../utils/generateBlurPlaceholder'
@@ -72,20 +73,22 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                         </div>
 
                         <h1 className="mt-8 mb-4 text-base font-bold uppercase tracking-widest">
-                            2022 1月のアバター
+                            2022年1月のアバター
                         </h1>
                         <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-                            冬のアバターです。ふわふわがかわいいです。
+                            本格的に寒くなってきました。お身体を大切にしてくださいね。
                         </p>
 
                     </div>
                     {images.map(({ id, public_id, format, blurDataUrl }) => (
                         <Link
                             key={id}
-                            href={`/?photoId=${id}`}
-                            as={`${name}/${date}/p/${id}`}
+                            href={{
+                                pathname: `/${name}/${date}`,
+                                query: { photoId: id },
+                            }}
                             ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
-                            shallow
+                            shallow={true}
                             className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
                         >
                             <Image
@@ -98,13 +101,14 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                                 width={720}
                                 height={480}
                                 sizes="(max-width: 640px) 100vw,
-                  (max-width: 1280px) 50vw,
-                  (max-width: 1536px) 33vw,
-                  25vw"
+                                    (max-width: 1280px) 50vw,
+                                    (max-width: 1536px) 33vw,
+                                    25vw"
                             />
                         </Link>
                     ))}
                 </div>
+
             </main>
 
         </>
@@ -113,10 +117,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
 
 export default Home
 
-export async function getStaticProps(params: { name: string, date: string }) {
+export const getStaticProps: GetStaticProps = async (context) => {
     //URLからパラメータを取得 
-    const { name, date } = { name: 'zeo', date: '202301' }
-
+    const { name, date } = context.params
 
     const results = await cloudinary.v2.search
         .expression(`folder:${name}/${date}/*`)
@@ -153,9 +156,11 @@ export async function getStaticProps(params: { name: string, date: string }) {
     }
 }
 
+
 export const getStaticPaths: GetStaticPaths = async () => {
+    //全てのフォルダを取得
     return {
         paths: [],
-        fallback: true,
+        fallback: 'blocking',
     }
 }

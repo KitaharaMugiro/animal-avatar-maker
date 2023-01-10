@@ -1,4 +1,4 @@
-import type { GetStaticProps, NextPage } from 'next'
+import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Carousel from '../../../../components/Carousel'
@@ -25,6 +25,7 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
       <main className="mx-auto max-w-[1960px] p-4">
         <Carousel currentPhoto={currentPhoto} index={index} />
       </main>
+
     </>
   )
 }
@@ -32,7 +33,8 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
 export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const results = await getResults()
+  const { photoId, name, date } = context.params
+  const results = await getResults(name as string, date as string)
 
   let reducedResults: ImageProps[] = []
   let i = 0
@@ -48,7 +50,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 
   const currentPhoto = reducedResults.find(
-    (img) => img.id === Number(context.params.photoId)
+    (img) => img.id === Number(photoId)
   )
   currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
 
@@ -59,20 +61,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
   }
 }
 
-export async function getStaticPaths() {
-  const results = await cloudinary.v2.search
-    .expression(`folder:${process.env.CLOUDINARY_FOLDER}/*`)
-    .sort_by('public_id', 'desc')
-    .max_results(400)
-    .execute()
-
-  let fullPaths = []
-  for (let i = 0; i < results.resources.length; i++) {
-    fullPaths.push({ params: { photoId: i.toString() } })
-  }
-
+export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: fullPaths,
-    fallback: false,
+    paths: [],
+    fallback: 'blocking',
   }
 }

@@ -13,11 +13,12 @@ export default function Carousel({
   currentPhoto: ImageProps
 }) {
   const router = useRouter()
+  const { name, date } = router.query
   const [, setLastViewedPhoto] = useLastViewedPhoto()
 
   function closeModal() {
     setLastViewedPhoto(currentPhoto.id)
-    router.push('/', undefined, { shallow: true })
+    router.push(`/${name}/${date}`, undefined, { shallow: true })
   }
 
   function changePhotoId(newVal: number) {

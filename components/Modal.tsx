@@ -16,14 +16,14 @@ export default function Modal({
   let overlayRef = useRef()
   const router = useRouter()
 
-  const { photoId } = router.query
+  const { photoId, name, date } = router.query
   let index = Number(photoId)
 
   const [direction, setDirection] = useState(0)
   const [curIndex, setCurIndex] = useState(index)
 
   function handleClose() {
-    router.push('/', undefined, { shallow: true })
+    router.push(`/${name}/${date}`, undefined, { shallow: true })
     onClose()
   }
 
@@ -36,9 +36,10 @@ export default function Modal({
     setCurIndex(newVal)
     router.push(
       {
+        pathname: `/${name}/${date}`,
         query: { photoId: newVal },
       },
-      `/p/${newVal}`,
+      undefined,
       { shallow: true }
     )
   }

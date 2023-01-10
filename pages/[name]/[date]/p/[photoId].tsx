@@ -10,7 +10,7 @@ import type { ImageProps } from '../../../../utils/types'
 
 const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
   const router = useRouter()
-  const { photoId } = router.query
+  const { photoId, name, date } = router.query
   let index = Number(photoId)
 
   const currentPhotoUrl = imageUrl(currentPhoto.public_id, currentPhoto.format, "c_scale,w_2560")
@@ -18,7 +18,7 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
   return (
     <>
       <Head>
-        <title>アニマルアバターメーカー</title>
+        <title>{name}さんのアバター {date}</title>
         <meta property="og:image" content={currentPhotoUrl} />
         <meta name="twitter:image" content={currentPhotoUrl} />
       </Head>

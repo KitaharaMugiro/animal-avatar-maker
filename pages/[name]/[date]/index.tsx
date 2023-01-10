@@ -28,11 +28,13 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
     }, [photoId, lastViewedPhoto, setLastViewedPhoto])
 
     const randomPickedImage = images[Math.floor(Math.random() * images.length)]
+    const year = date?.toString().slice(0, 4)
+    const month = date?.toString().slice(4, 6)
 
     return (
         <>
             <Head>
-                <title>neneさんのアバター(1月)</title>
+                <title>{name}さんのアバター {date}</title>
                 <meta
                     property="og:image"
                     content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"

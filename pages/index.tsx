@@ -32,7 +32,6 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
     <>
       <Head>
         <title>neneさんのアバター(1月)</title>
-        {/* TODO: OGP設定する */}
         <meta
           property="og:image"
           content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"

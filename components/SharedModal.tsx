@@ -39,6 +39,7 @@ export default function SharedModal({
 
   let currentImage = images ? images[index] : currentPhoto
 
+
   return (
     <MotionConfig
       transition={{
@@ -52,7 +53,7 @@ export default function SharedModal({
       >
         {/* Main image */}
         <div className="w-full overflow-hidden">
-          <div className="relative flex aspect-[3/2] items-center justify-center">
+          <div className="relative flex aspect-[1/1] items-center justify-center">
             <AnimatePresence initial={false} custom={direction}>
               <motion.div
                 key={index}
@@ -64,17 +65,15 @@ export default function SharedModal({
                 className="absolute"
               >
                 <Image
-                  src={`https://res.cloudinary.com/${
-                    process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-                  }/image/upload/c_scale,${navigation ? 'w_1280' : 'w_1920'}/${
-                    currentImage.public_id
-                  }.${currentImage.format}`}
-                  width={navigation ? 1280 : 1920}
-                  height={navigation ? 853 : 1280}
+                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+                    }/image/upload/h_512,w_512,f_auto,q_auto/${currentImage.public_id}.${currentImage.format}`}
+                  width={512}
+                  height={512}
                   priority
-                  alt="Next.js Conf image"
+                  alt="avatar"
                   onLoadingComplete={() => setLoaded(true)}
                 />
+
               </motion.div>
             </AnimatePresence>
           </div>
@@ -84,7 +83,7 @@ export default function SharedModal({
         <div className="absolute inset-0 mx-auto flex max-w-7xl items-center justify-center">
           {/* Buttons */}
           {loaded && (
-            <div className="relative aspect-[3/2] max-h-full w-full">
+            <div className="relative aspect-[1/1] max-h-full w-full">
               {navigation && (
                 <>
                   {index > 0 && (
@@ -161,7 +160,7 @@ export default function SharedModal({
             <div className="fixed inset-x-0 bottom-0 z-40 overflow-hidden bg-gradient-to-b from-black/0 to-black/60">
               <motion.div
                 initial={false}
-                className="mx-auto mt-6 mb-6 flex aspect-[3/2] h-14"
+                className="mx-auto mt-6 mb-6 flex aspect-[1/1] h-14"
               >
                 <AnimatePresence initial={false}>
                   {filteredImages.map(({ public_id, format, id }) => (
@@ -178,23 +177,20 @@ export default function SharedModal({
                       exit={{ width: '0%' }}
                       onClick={() => changePhotoId(id)}
                       key={id}
-                      className={`${
-                        id === index
-                          ? 'z-20 rounded-md shadow shadow-black/50'
-                          : 'z-10'
-                      } ${id === 0 ? 'rounded-l-md' : ''} ${
-                        id === images.length - 1 ? 'rounded-r-md' : ''
-                      } relative inline-block w-full shrink-0 transform-gpu overflow-hidden focus:outline-none`}
+                      className={`${id === index
+                        ? 'z-20 rounded-md shadow shadow-black/50'
+                        : 'z-10'
+                        } ${id === 0 ? 'rounded-l-md' : ''} ${id === images.length - 1 ? 'rounded-r-md' : ''
+                        } relative inline-block w-full shrink-0 transform-gpu overflow-hidden focus:outline-none`}
                     >
                       <Image
                         alt="small photos on the bottom"
                         width={180}
-                        height={120}
-                        className={`${
-                          id === index
-                            ? 'brightness-110 hover:brightness-110'
-                            : 'brightness-50 contrast-125 hover:brightness-75'
-                        } h-full transform object-cover transition`}
+                        height={180}
+                        className={`${id === index
+                          ? 'brightness-110 hover:brightness-110'
+                          : 'brightness-50 contrast-125 hover:brightness-75'
+                          } h-full transform object-cover transition`}
                         src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_180/${public_id}.${format}`}
                       />
                     </motion.button>

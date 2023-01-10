@@ -12,6 +12,7 @@ import { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { variants } from '../utils/animationVariants'
 import downloadPhoto from '../utils/downloadPhoto'
+import { imageUrl } from '../utils/imageUrl'
 import { range } from '../utils/range'
 import type { ImageProps, SharedModalProps } from '../utils/types'
 import Twitter from './Icons/Twitter'
@@ -65,7 +66,7 @@ export default function SharedModal({
                 className="absolute"
               >
                 <Image
-                  src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_512/${currentImage.public_id}.${currentImage.format}`}
+                  src={imageUrl(currentImage.public_id, currentImage.format)}
                   width={720}
                   height={480}
                   sizes="(max-width: 640px) 100vw,
@@ -194,7 +195,7 @@ export default function SharedModal({
                           ? 'brightness-110 hover:brightness-110'
                           : 'brightness-50 contrast-125 hover:brightness-75'
                           } h-full transform object-cover transition`}
-                        src={`https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_180/${public_id}.${format}`}
+                        src={imageUrl(public_id, format, "c_scale,w_180")}
                       />
                     </motion.button>
                   ))}

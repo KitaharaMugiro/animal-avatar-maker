@@ -5,6 +5,7 @@ import Carousel from '../../components/Carousel'
 import getResults from '../../utils/cachedImages'
 import cloudinary from '../../utils/cloudinary'
 import getBase64ImageUrl from '../../utils/generateBlurPlaceholder'
+import { imageUrl } from '../../utils/imageUrl'
 import type { ImageProps } from '../../utils/types'
 
 const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
@@ -12,7 +13,7 @@ const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
   const { photoId } = router.query
   let index = Number(photoId)
 
-  const currentPhotoUrl = `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_2560/${currentPhoto.public_id}.${currentPhoto.format}`
+  const currentPhotoUrl = imageUrl(currentPhoto.public_id, currentPhoto.format, "c_scale,w_2560")
 
   return (
     <>

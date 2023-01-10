@@ -35,11 +35,11 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
         {/* TODO: OGP設定する */}
         <meta
           property="og:image"
-          content="https://nextjsconf-pics.vercel.app/og-image.png"
+          content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
         />
         <meta
           name="twitter:image"
-          content="https://nextjsconf-pics.vercel.app/og-image.png"
+          content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
         />
       </Head>
       <main className="mx-auto max-w-[1960px] p-4">

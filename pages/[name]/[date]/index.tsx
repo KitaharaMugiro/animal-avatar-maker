@@ -45,6 +45,9 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                 />
             </Head>
             <main className="mx-auto max-w-[1960px] p-4">
+                {/* ヘッダー */}
+
+                {/* モーダル */}
                 {photoId && (
                     <Modal
                         images={images}
@@ -81,7 +84,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                         </p>
 
                     </div>
-                    {images.map(({ id, public_id, format, blurDataUrl }) => (
+                    {images.map(({ id, public_id, format, blurDataUrl, mosaic }) => (
                         <Link
                             key={id}
                             href={{
@@ -98,7 +101,7 @@ const Home: NextPage = ({ images }: { images: ImageProps[] }) => {
                                 style={{ transform: 'translate3d(0, 0, 0)' }}
                                 placeholder="blur"
                                 blurDataURL={blurDataUrl}
-                                src={imageUrl(public_id, format)}
+                                src={imageUrl(public_id, format, mosaic ? "c_scale,w_30" : undefined)}
                                 width={720}
                                 height={480}
                                 sizes="(max-width: 640px) 100vw,
@@ -125,7 +128,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const results = await cloudinary.v2.search
         .expression(`folder:${name}/${date}/*`)
         .sort_by('public_id', 'desc')
-        .max_results(400)
+        .with_field("tags")
+        .max_results(100)
         .execute()
     let reducedResults: ImageProps[] = []
 
@@ -137,6 +141,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
             width: result.width,
             public_id: result.public_id,
             format: result.format,
+            mosaic: result.tags.includes("mosaic"),
         })
         i++
     }

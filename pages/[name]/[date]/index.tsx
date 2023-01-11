@@ -117,10 +117,10 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
                     {/* show more button */}
                     {!showMore && (
                         <button
-                            className="w-full py-4 text-white bg-gradient-to-r from-[#ff0084] to-[#ffcd1e] rounded-lg shadow-highlight"
+                            className="w-full py-4 text-white bg-gradient-to-r from-[#2193b0] to-[#6dd5ed] rounded-lg shadow-highlight"
                             onClick={() => setShowMore(true)}
                         >
-                            Show More
+                            <b>もっとみたい</b>
                         </button>
                     )}
 

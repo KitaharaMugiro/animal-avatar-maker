@@ -1,9 +1,8 @@
-import type { GetServerSideProps, GetStaticPaths, GetStaticProps, NextPage } from 'next'
+import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Carousel from '../../../../components/Carousel'
-import getResults from '../../../../utils/cachedImages'
-import getBase64ImageUrl from '../../../../utils/generateBlurPlaceholder'
+import { getImages } from '../../../../utils/getImages'
 import { imageUrl } from '../../../../utils/imageUrl'
 import type { ImageProps } from '../../../../utils/types'
 
@@ -33,26 +32,11 @@ export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { photoId, name, date } = context.params
-  const results = await getResults(name as string, date as string)
+  const results = await getImages(name as string, date as string)
 
-  let reducedResults: ImageProps[] = []
-  let i = 0
-  for (let result of results.resources) {
-    reducedResults.push({
-      id: i,
-      height: result.height,
-      width: result.width,
-      public_id: result.public_id,
-      format: result.format,
-      mosaic: result.tags.includes("mosaic"),
-    })
-    i++
-  }
-
-  const currentPhoto = reducedResults.find(
+  const currentPhoto = results.find(
     (img) => img.id === Number(photoId)
   )
-  currentPhoto.blurDataUrl = await getBase64ImageUrl(currentPhoto)
 
   return {
     props: {

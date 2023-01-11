@@ -5,7 +5,6 @@ export interface ImageProps {
   width: string
   public_id: string
   format: string
-  blurDataUrl?: string
   mosaic: boolean
 }
 

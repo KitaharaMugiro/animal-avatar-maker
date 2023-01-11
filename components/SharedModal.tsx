@@ -65,8 +65,9 @@ export default function SharedModal({
                 exit="exit"
                 className="absolute"
               >
+
                 <Image
-                  src={imageUrl(currentImage.public_id, currentImage.format)}
+                  src={imageUrl(currentImage.public_id, currentImage.format, currentImage.mosaic ? "c_scale,w_30" : undefined)}
                   width={720}
                   height={480}
                   sizes="(max-width: 640px) 100vw,
@@ -77,6 +78,7 @@ export default function SharedModal({
                   alt="avatar"
                   onLoadingComplete={() => setLoaded(true)}
                 />
+
 
               </motion.div>
             </AnimatePresence>
@@ -107,6 +109,17 @@ export default function SharedModal({
                     >
                       <ChevronRightIcon className="h-6 w-6" />
                     </button>
+                  )}
+                  {currentImage.mosaic && (
+                    <div className="flex h-screen justify-center items-center">
+                      <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <a href="https://forms.gle/6t8M1amahjK4udjM8" target="_blank" rel="noopener noreferrer">
+                          追加でアバターを作成する
+                        </a>
+
+                      </button>
+                    </div>
                   )}
                 </>
               )}
@@ -189,13 +202,13 @@ export default function SharedModal({
                     >
                       <Image
                         alt="small photos on the bottom"
-                        width={180}
-                        height={180}
+                        width={80}
+                        height={80}
                         className={`${id === index
                           ? 'brightness-110 hover:brightness-110'
                           : 'brightness-50 contrast-125 hover:brightness-75'
                           } h-full transform object-cover transition`}
-                        src={imageUrl(public_id, format, "c_scale,w_180")}
+                        src={imageUrl(public_id, format, "c_scale,w_80")}
                       />
                     </motion.button>
                   ))}

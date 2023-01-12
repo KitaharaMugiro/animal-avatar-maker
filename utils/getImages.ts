@@ -1,12 +1,7 @@
 import cloudinary from "./cloudinary"
 import { ImageProps } from "./types"
 
-let cachedResults
 export const getImages = async (name: string, date: string) => {
-    if (cachedResults) {
-        return cachedResults
-    }
-
     const results = await cloudinary.v2.search
         .expression(`folder:${name}/${date}/*`)
         .sort_by('public_id', 'desc')
@@ -46,6 +41,5 @@ export const getImages = async (name: string, date: string) => {
         i++
     }
 
-    cachedResults = reducedResults
     return reducedResults
 }

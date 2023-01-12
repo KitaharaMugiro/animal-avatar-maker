@@ -143,6 +143,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             images: reducedResults,
         },
+        revalidate: 60,
     }
 }
 

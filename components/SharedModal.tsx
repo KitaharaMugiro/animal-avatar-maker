@@ -75,6 +75,7 @@ export default function SharedModal({
                   (max-width: 1536px) 33vw,
                   25vw"
                   priority
+                  unoptimized
                   alt="avatar"
                   onLoadingComplete={() => setLoaded(true)}
                 />
@@ -204,6 +205,7 @@ export default function SharedModal({
                         alt="small photos on the bottom"
                         width={80}
                         height={80}
+                        unoptimized
                         className={`${id === index
                           ? 'brightness-110 hover:brightness-110'
                           : 'brightness-50 contrast-125 hover:brightness-75'

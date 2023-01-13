@@ -74,6 +74,7 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
                                     width={400}
                                     height={400}
                                     layout="fixed"
+                                    unoptimized
                                     alt="Top Avatar"
                                 />
                             )}
@@ -106,6 +107,7 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
                                 src={imageUrl(public_id, format, mosaic ? "c_scale,w_30" : undefined)}
                                 width={720}
                                 height={480}
+                                unoptimized
                                 sizes="(max-width: 640px) 100vw,
                                     (max-width: 1280px) 50vw,
                                     (max-width: 1536px) 33vw,

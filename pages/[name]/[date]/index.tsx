@@ -63,32 +63,7 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
                     />
                 )}
                 <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-                    <div className="after:content relative mb-5 flex h-[629px] flex-col items-center justify-end gap-4 overflow-hidden rounded-lg bg-white/10 px-6 pb-16 pt-64 text-center text-white shadow-highlight after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight lg:pt-0">
 
-                        <div className="absolute inset-0 flex items-center justify-center opacity-20">
-                            {/* ランダムに一枚の画像を表示。丸にする */}
-                            {randomPickedImage && (
-                                <Image
-                                    className="rounded-full"
-                                    src={imageUrl(randomPickedImage.public_id, randomPickedImage.format)}
-                                    width={400}
-                                    height={400}
-                                    layout="fixed"
-                                    unoptimized
-                                    alt="Top Avatar"
-                                />
-                            )}
-                            <span className="absolute left-0 right-0 bottom-0 h-[400px] bg-gradient-to-b from-black/0 via-black to-black"></span>
-                        </div>
-
-                        <h1 className="mt-8 mb-4 text-base font-bold uppercase tracking-widest">
-                            {year}年{month}月のアバター
-                        </h1>
-                        <p className="max-w-[40ch] text-white/75 sm:max-w-[32ch]">
-                            本格的に寒くなってきました。お身体を大切にしてくださいね。
-                        </p>
-
-                    </div>
                     {images.map(({ id, public_id, format, mosaic }) => (
                         <Link
                             key={id}

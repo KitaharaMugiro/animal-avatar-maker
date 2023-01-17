@@ -35,7 +35,7 @@ class MyDocument extends Document {
                   })(window, document, "clarity", "script", "fcov0h93ee");
                     `}} />
         </Head>
-        <body className="bg-black antialiased">
+        <body className="bg-slate-100 antialiased">
           <Main />
           <NextScript />
         </body>

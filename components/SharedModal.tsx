@@ -12,7 +12,7 @@ import { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
 import { variants } from '../utils/animationVariants'
 import downloadPhoto from '../utils/downloadPhoto'
-import { imageUrl } from '../utils/imageUrl'
+import { imageUrl, thumbailImageUrl } from '../utils/imageUrl'
 import { range } from '../utils/range'
 import type { ImageProps, SharedModalProps } from '../utils/types'
 import Twitter from './Icons/Twitter'
@@ -67,7 +67,7 @@ export default function SharedModal({
               >
 
                 <Image
-                  src={imageUrl(currentImage.public_id, currentImage.format, currentImage.mosaic ? "c_scale,w_30" : undefined)}
+                  src={imageUrl(currentImage.public_id, currentImage.format, currentImage.mosaic, currentImage.sample)}
                   width={720}
                   height={480}
                   sizes="(max-width: 640px) 100vw,
@@ -210,7 +210,7 @@ export default function SharedModal({
                           ? 'brightness-110 hover:brightness-110'
                           : 'brightness-50 contrast-125 hover:brightness-75'
                           } h-full transform object-cover transition`}
-                        src={imageUrl(public_id, format, "c_scale,w_80")}
+                        src={thumbailImageUrl(public_id, format)}
                       />
                     </motion.button>
                   ))}

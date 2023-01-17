@@ -19,6 +19,7 @@ export const getImages = async (name: string, date: string) => {
             public_id: result.public_id,
             format: result.format,
             mosaic: result.tags.includes("mosaic"),
+            sample: result.tags.includes("sample"),
         })
         i++
     }

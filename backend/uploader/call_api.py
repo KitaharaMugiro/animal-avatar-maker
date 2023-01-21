@@ -1,4 +1,4 @@
-def call_api(secret, query):
+def call_api(secret, query, variables = {}):
   import requests
   # urlを設定
   url = f"https://main-airedale-23.hasura.app/v1/graphql"
@@ -13,6 +13,7 @@ def call_api(secret, query):
   # requestする
   response = requests.post(
       url,
-      json={"query": query},
+      json={"query": query, "variables": variables},
       headers=headers
   )
+  print(response.json())

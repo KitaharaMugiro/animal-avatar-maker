@@ -6,7 +6,7 @@ export const getImages = async (name: string, date: string) => {
         .expression(`folder:${name}/${date}/*`)
         .sort_by('public_id', 'desc')
         .with_field("tags")
-        .max_results(100)
+        .max_results(150)
         .execute()
 
     let reducedResults: ImageProps[] = []

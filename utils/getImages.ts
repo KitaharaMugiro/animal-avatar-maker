@@ -3,7 +3,7 @@ import { ImageProps } from "./types"
 
 export const getImages = async (name: string, date: string) => {
     const results = await cloudinary.v2.search
-        .expression(`folder:${name}/${date}/*`)
+        .expression(`folder:output/${name}/${date}/*`)
         .sort_by('public_id', 'desc')
         .with_field("tags")
         .max_results(150)

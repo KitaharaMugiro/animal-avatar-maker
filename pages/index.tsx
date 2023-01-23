@@ -9,14 +9,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>うちの子イラスト定期便</title>
-        <meta
-          property="og:image"
-          content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-        />
+        <title>うちの子イラスト定期便 Presented By アニマルアバターメーカー</title>
+        <meta property="og:image" content="https://res.cloudinary.com/ddeqwb08j/image/upload/v1674475269/1_cn9s39.png" />
+
         <meta
           name="twitter:image"
-          content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
+          content="https://res.cloudinary.com/ddeqwb08j/image/upload/v1674475269/1_cn9s39.png"
         />
       </Head>
 

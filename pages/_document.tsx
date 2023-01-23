@@ -1,11 +1,20 @@
+import { createGetInitialProps } from '@mantine/next';
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
+const getInitialProps = createGetInitialProps();
+
 class MyDocument extends Document {
+  static getInitialProps = getInitialProps;
   render() {
     return (
       <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" />
+
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet" />
+
           <meta
             name="description"
             content="Animal avatar maker"
@@ -35,7 +44,7 @@ class MyDocument extends Document {
                   })(window, document, "clarity", "script", "fcov0h93ee");
                     `}} />
         </Head>
-        <body className="bg-slate-100 antialiased">
+        <body>
           <Main />
           <NextScript />
         </body>

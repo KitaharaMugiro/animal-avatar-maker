@@ -74,7 +74,7 @@ export function Hero() {
             <Container className={classes.container}>
                 <Text className={classes.title}>うちの子イラスト定期便</Text>
                 <Text className={classes.description} size="xl" mt="xl">
-                    毎月あなたのポストに、あなたのペットのオーダーメイドなイラストが届きます。
+                    毎月あなたのポストに、あなたの大切なペットのオーダーメイドなイラストが届きます。
                 </Text>
 
             </Container>

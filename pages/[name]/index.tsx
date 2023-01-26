@@ -4,16 +4,17 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
-import Modal from '../../../components/Modal'
-import { getImages } from '../../../utils/getImages'
-import { imageUrl } from '../../../utils/imageUrl'
-import { ImageProps } from '../../../utils/types'
-import { useLastViewedPhoto } from '../../../utils/useLastViewedPhoto'
+import NoAvatar from '../../components/avatar/NoAvatar'
+import Modal from '../../components/Modal'
+import { getAllImages, getImages, getInputImages } from '../../utils/getImages'
+import { imageUrl } from '../../utils/imageUrl'
+import { ImageProps } from '../../utils/types'
+import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto'
 
 
-const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
+const Home: NextPage = ({ images: _images, inputImages }: { images: ImageProps[], inputImages: ImageProps[] }) => {
     const router = useRouter()
-    const { photoId, name, date } = router.query
+    const { photoId, name } = router.query
     const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
     const [showMore, setShowMore] = useState(false)
     const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
@@ -31,15 +32,15 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
     if (!showMore) {
         images = _images.filter(i => i.mosaic !== true)
     }
-    const randomPickedImage = images[Math.floor(Math.random() * images.length)]
-    const year = date?.toString().slice(0, 4)
-    const month = date?.toString().slice(4, 6)
 
+    if (images.length === 0) {
+        return <NoAvatar name={name as string} inputImages={inputImages} />
+    }
 
     return (
         <>
             <Head>
-                <title>{name}さんのアバター {date} | アニマルアバターメーカー</title>
+                <title>{name as string}さんのギャラリー | アニマルアバターメーカー</title>
                 <meta
                     property="og:image"
                     content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
@@ -68,7 +69,7 @@ const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
                         <Link
                             key={id}
                             href={{
-                                pathname: `/${name}/${date}`,
+                                pathname: `/${name}`,
                                 query: { photoId: id },
                             }}
                             ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
@@ -113,12 +114,14 @@ export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
     //URLからパラメータを取得 
-    const { name, date } = context.params
-    const reducedResults = await getImages(name as string, date as string)
+    const { name } = context.params
+    const reducedResults = await getAllImages(name as string)
+    const inputResults = await getInputImages(name as string)
 
     return {
         props: {
             images: reducedResults,
+            inputImages: inputResults,
         },
         revalidate: 60,
     }

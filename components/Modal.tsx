@@ -23,7 +23,12 @@ export default function Modal({
   const [curIndex, setCurIndex] = useState(index)
 
   function handleClose() {
-    router.push(`/${name}/${date}`, undefined, { shallow: true })
+    if (date) {
+      router.push(`/${name}/${date}`, undefined, { shallow: true })
+    } else {
+      router.push(`/${name}`, undefined, { shallow: true })
+    }
+
     onClose()
   }
 
@@ -34,14 +39,26 @@ export default function Modal({
       setDirection(-1)
     }
     setCurIndex(newVal)
-    router.push(
-      {
-        pathname: `/${name}/${date}`,
-        query: { photoId: newVal },
-      },
-      undefined,
-      { shallow: true }
-    )
+    if (date) {
+      router.push(
+        {
+          pathname: `/${name}/${date}`,
+          query: { photoId: newVal },
+        },
+        undefined,
+        { shallow: true }
+      )
+    } else {
+      router.push(
+        {
+          pathname: `/${name}`,
+          query: { photoId: newVal },
+        },
+        undefined,
+        { shallow: true }
+      )
+    }
+
   }
 
   useKeypress('ArrowRight', () => {

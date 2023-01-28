@@ -15,11 +15,11 @@ export default (props: Props) => {
     const [plan, setPlan] = useState("none")
     const readyToCreate = plan !== "none" && isInputUploaded
 
-    const onCreate = () => {
+    const onCreate = async () => {
         console.log("confirm")
         if (confirm("アバターを作成しますか？")) {
             //TODO: planやprompt_versionを選択できるようにする
-            fetch('/api/kick_status', {
+            await fetch('/api/kick_status', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -31,6 +31,8 @@ export default (props: Props) => {
                     class_name: "dog"
                 })
             })
+            //リロード
+            window.location.reload()
         }
     }
 

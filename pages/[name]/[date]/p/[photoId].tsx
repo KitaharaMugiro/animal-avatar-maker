@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import Carousel from '../../../../components/Carousel'
 import { getImages } from '../../../../utils/getImages'
 import { imageUrl } from '../../../../utils/imageUrl'
-import type { ImageProps } from '../../../../utils/types'
+import type { CloudinaryImageProps } from '../../../../utils/types'
 
-const Home: NextPage = ({ currentPhoto }: { currentPhoto: ImageProps }) => {
+const Home: NextPage = ({ currentPhoto }: { currentPhoto: CloudinaryImageProps }) => {
   const router = useRouter()
   const { photoId, name, date } = router.query
   let index = Number(photoId)

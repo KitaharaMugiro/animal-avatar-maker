@@ -7,16 +7,17 @@ import { useEffect, useRef, useState } from 'react'
 import Modal from '../../../components/Modal'
 import { getImages } from '../../../utils/getImages'
 import { imageUrl } from '../../../utils/imageUrl'
-import { ImageProps } from '../../../utils/types'
+import { CloudinaryImageProps } from '../../../utils/types'
 import { useLastViewedPhoto } from '../../../utils/useLastViewedPhoto'
 
 
-const Home: NextPage = ({ images: _images }: { images: ImageProps[] }) => {
+const Home: NextPage = ({ images: _images }: { images: CloudinaryImageProps[] }) => {
     const router = useRouter()
     const { photoId, name, date } = router.query
     const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
     const [showMore, setShowMore] = useState(false)
     const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
+
 
     useEffect(() => {
         // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
@@ -114,6 +115,16 @@ export default Home
 export const getStaticProps: GetStaticProps = async (context) => {
     //URLからパラメータを取得 
     const { name, date } = context.params
+
+    //過去の遺物なのでリダイレクトさせるさせる
+    //TODO : 不要ならこのファイルごと消す
+    return {
+        redirect: {
+            permanent: false, // 永続的なリダイレクトかどうか
+            destination: '/' + name, // リダイレクト先
+        },
+    }
+
     const reducedResults = await getImages(name as string, date as string)
 
     return {

@@ -12,15 +12,15 @@ const post = async (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
         console.log({ fields })
-        await saveFile(files.file, fields.name);
+        await saveFile(files.file, fields.name, fields.file_name);
         return res.status(201).send("");
     });
 };
 
-const saveFile = async (file, name) => {
+const saveFile = async (file, name, file_name) => {
     cloudinary.v2.uploader
         .upload(file.filepath, {
-            public_id: `input/${name}/f_1.png`,
+            public_id: `input/${name}/${file_name}`,
             resource_type: "auto"
         })
         .then(result => console.log(result));

@@ -3,14 +3,14 @@ import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useRef, useState } from 'react'
 import useKeypress from 'react-use-keypress'
-import type { ImageProps } from '../utils/types'
+import type { CloudinaryImageProps } from '../utils/types'
 import SharedModal from './SharedModal'
 
 export default function Modal({
   images,
   onClose,
 }: {
-  images: ImageProps[]
+  images: CloudinaryImageProps[]
   onClose?: () => void
 }) {
   let overlayRef = useRef()

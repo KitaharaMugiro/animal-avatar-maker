@@ -1,5 +1,5 @@
 import cloudinary from "./cloudinary"
-import { ImageProps } from "./types"
+import { CloudinaryImageProps } from "./types"
 
 export const getImages = async (name: string, date: string) => {
     const results = await cloudinary.v2.search
@@ -9,7 +9,7 @@ export const getImages = async (name: string, date: string) => {
         .max_results(150)
         .execute()
 
-    let reducedResults: ImageProps[] = []
+    let reducedResults: CloudinaryImageProps[] = []
     let i = 0
     for (let result of results.resources) {
         reducedResults.push({
@@ -54,7 +54,7 @@ export const getAllImages = async (name: string) => {
         .max_results(150)
         .execute()
 
-    let reducedResults: ImageProps[] = []
+    let reducedResults: CloudinaryImageProps[] = []
     let i = 0
     for (let result of results.resources) {
         reducedResults.push({
@@ -98,7 +98,7 @@ export const getInputImages = async (name: string) => {
         .max_results(3)
         .execute()
 
-    let reducedResults: ImageProps[] = []
+    let reducedResults: CloudinaryImageProps[] = []
     let i = 0
     for (let result of results.resources) {
         reducedResults.push({

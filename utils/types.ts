@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export interface ImageProps {
+export interface CloudinaryImageProps {
   id: number
   height: string
   width: string
@@ -11,8 +11,8 @@ export interface ImageProps {
 
 export interface SharedModalProps {
   index: number
-  images?: ImageProps[]
-  currentPhoto?: ImageProps
+  images?: CloudinaryImageProps[]
+  currentPhoto?: CloudinaryImageProps
   changePhotoId: (newVal: number) => void
   closeModal: () => void
   navigation: boolean

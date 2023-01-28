@@ -18,6 +18,8 @@
     "eslint-config-next": "^13.0.1",
     "formidable": "^2.1.1",
     "framer-motion": "^7.6.4",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
     "imagemin": "^8.0.1",
     "imagemin-jpegtran": "^7.0.0",
     "next": "latest",

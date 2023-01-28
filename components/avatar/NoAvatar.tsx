@@ -53,7 +53,7 @@ export default (props: Props) => {
             return (
                 <>
                     <div className="mt-4">
-                        <p className="text-lg">STEP1: Birmeにアクセスして、画像を512×512にリサイズします。</p>
+                        <p className="text-lg">STEP1: 画像を正方形(512×512)にリサイズしてください。PCの場合は以下のリンクがおすすめです。スマホの場合はスクエアで保存し直してください。</p>
                         <a href="https://www.birme.net/?target_width=512&target_height=512" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">https://www.birme.net/</a>
                     </div>
 

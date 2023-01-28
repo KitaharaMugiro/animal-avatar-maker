@@ -18,13 +18,11 @@ const post = async (req, res) => {
 };
 
 const saveFile = async (file, name, file_name) => {
-    cloudinary.v2.uploader
+    await cloudinary.v2.uploader
         .upload(file.filepath, {
             public_id: `input/${name}/${file_name}`,
-            resource_type: "auto"
+            resource_type: "image"
         })
-        .then(result => console.log(result));
-    return;
 };
 
 export default (req, res) => {

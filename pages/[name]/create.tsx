@@ -1,4 +1,4 @@
-import { GetStaticProps, GetStaticPaths } from "next"
+import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next"
 import Head from "next/head";
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
 
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
     //URLからパラメータを取得 
     const { name } = context.params
     const inputResults = await getInputImages(name as string)
@@ -49,15 +49,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
         props: {
             inputImages: inputResults,
         },
-        revalidate: 60,
-    }
-}
-
-
-export const getStaticPaths: GetStaticPaths = async () => {
-    //全てのフォルダを取得
-    return {
-        paths: [],
-        fallback: 'blocking',
     }
 }

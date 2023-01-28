@@ -1,19 +1,24 @@
 import Head from "next/head"
 import { CloudinaryImageProps } from "../../utils/types"
-import PromptSelector from "./PromptSelector"
 import Uploader from "./Uploader"
+import Image from "next/image"
+import { imageUrl, thumbailImageUrl } from "../../utils/imageUrl"
+import PlanSelector from "./PlanSelector"
+import { useState } from "react"
 
 interface Props {
     name: string,
     inputImages: CloudinaryImageProps[]
 }
 export default (props: Props) => {
-    //TODO : ステータスを確認してwaitingであればその旨を表示する
     const isInputUploaded = props.inputImages.length > 0
+    const [plan, setPlan] = useState("none")
+    const readyToCreate = plan !== "none" && isInputUploaded
 
     const onCreate = () => {
+        console.log("confirm")
         if (confirm("アバターを作成しますか？")) {
-            //TODO: planやprompt_versionを選択できる
+            //TODO: planやprompt_versionを選択できるようにする
             fetch('/api/kick_status', {
                 method: 'POST',
                 headers: {
@@ -21,46 +26,68 @@ export default (props: Props) => {
                 },
                 body: JSON.stringify({
                     user_id: props.name,
-                    plan: "otameshi",
+                    plan: plan,
                     prompt_version: 3,
                     class_name: "dog"
                 })
             })
         }
-
     }
-    //TODO: isInputUploadedがtrueならば、アップロードした画像を表示する
-    return <div className="bg-gray-50">
+
+    const uploadOrPreviewRender = () => {
+        //TODO: isInputUploadedがtrueならば、アップロードした画像を表示する
+        if (isInputUploaded) {
+            return <div className="mt-2 grid grid-cols-5 gap-y-2 gap-x-4 sm:grid-cols-8">
+                {props.inputImages.map((file) => (
+                    <div key={file.public_id} className="relative group">
+                        <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden">
+                            <img src={imageUrl(file.public_id, file.format, false, false)} className="object-cover" />
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+        } else {
+            return (
+                <>
+                    <div className="mt-4">
+                        <p className="text-lg">STEP1: Birmeにアクセスして、画像を512×512にリサイズします。</p>
+                        <a href="https://www.birme.net/?target_width=512&target_height=512" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">https://www.birme.net/</a>
+                    </div>
+
+                    <div className="mt-4">
+                        <p className="text-lg">STEP2: リサイズした画像をアップロードします</p>
+                        {/* リサイズした画像をアップロードしよう */}
+                        <Uploader name={props.name} />
+                    </div></>)
+
+        }
+    }
+
+    return <div className="bg-gray-50 p-5">
         {/* まずBirmeでリサイズすることを伝える */}
         <div className="text-center">
             <h1 className="text-3xl font-bold">アニマルアバターメーカー</h1>
-            <p className="text-xl">ペットの写真を10~15枚アップロードしてください</p>
         </div>
 
-        <div className="mt-4">
-            <p className="text-lg">STEP1: Birmeにアクセスして、画像を512×512にリサイズします。</p>
-            <a href="https://www.birme.net/?target_width=512&target_height=512" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">https://www.birme.net/</a>
-        </div>
+        {uploadOrPreviewRender()}
 
-        <div className="mt-4">
-            <p className="text-lg">STEP2: リサイズした画像をアップロードします</p>
-            {/* リサイズした画像をアップロードしよう */}
-            <Uploader name={props.name} />
-        </div>
+        {isInputUploaded &&
+            <div className="mt-4">
+                <p className="text-lg">STEP3: プランを選ぶ</p>
+                <PlanSelector plan={plan} setPlan={setPlan} />
+            </div>
+        }
+        {readyToCreate &&
+            <div className="flex flex-col items-center">
+                <button
+                    onClick={onCreate}
+                    className="mx-auto my-10 bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-16 rounded-full">
+                    アバターを作成する
+                </button>
+            </div>
+        }
 
-        <div className="mt-4">
-            <p className="text-lg">STEP3: プロンプトを選ぶ</p>
-            {/* リサイズした画像をアップロードしよう */}
-            <PromptSelector />
-        </div>
-
-        <div className="flex flex-col items-center">
-            <button
-                onClick={onCreate}
-                className="mx-auto my-10 bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-16 rounded-full">
-                アバターを作成する
-            </button>
-        </div>
     </div>
 
 }

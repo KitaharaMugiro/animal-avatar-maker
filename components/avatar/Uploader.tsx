@@ -31,6 +31,8 @@ export default (props: Props) => {
         }
         await Promise.all(promises)
         alert("アップロードが完了しました。")
+        //リロード
+        window.location.reload();
 
     };
     return <div>
@@ -79,7 +81,6 @@ export default (props: Props) => {
                     <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden">
                         <img src={URL.createObjectURL(file)} alt="" className="object-cover" />
                     </div>
-
                 </div>
             ))}
         </div>}

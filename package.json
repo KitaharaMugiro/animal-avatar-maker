@@ -16,6 +16,8 @@
     "@mantine/next": "^5.10.1",
     "cloudinary": "^1.33.0",
     "eslint-config-next": "^13.0.1",
+    "flowbite": "^1.6.3",
+    "flowbite-react": "^0.3.8",
     "formidable": "^2.1.1",
     "framer-motion": "^7.6.4",
     "graphql": "^16.6.0",

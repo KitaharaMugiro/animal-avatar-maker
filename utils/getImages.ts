@@ -18,8 +18,8 @@ export const getImages = async (name: string, date: string) => {
             width: result.width,
             public_id: result.public_id,
             format: result.format,
-            mosaic: result.tags.includes("mosaic"),
-            sample: result.tags.includes("sample"),
+            mosaic: result.tags ? result.tags.includes("mosaic") : false,
+            sample: result.tags ? result.tags.includes("sample") : false,
         })
         i++
     }
@@ -63,8 +63,8 @@ export const getAllImages = async (name: string) => {
             width: result.width,
             public_id: result.public_id,
             format: result.format,
-            mosaic: result.tags.includes("mosaic"),
-            sample: result.tags.includes("sample"),
+            mosaic: result.tags ? result.tags.includes("mosaic") : false,
+            sample: result.tags ? result.tags.includes("sample") : false,
         })
         i++
     }
@@ -95,7 +95,7 @@ export const getInputImages = async (name: string) => {
     const results = await cloudinary.v2.search
         .expression(`folder:input/${name}/*`)
         .sort_by('created_at', 'desc')
-        .max_results(3)
+        .max_results(15)
         .execute()
 
     let reducedResults: CloudinaryImageProps[] = []
@@ -107,8 +107,8 @@ export const getInputImages = async (name: string) => {
             width: result.width,
             public_id: result.public_id,
             format: result.format,
-            mosaic: result.tags.includes("mosaic"),
-            sample: result.tags.includes("sample"),
+            mosaic: false,
+            sample: false,
         })
         i++
     }

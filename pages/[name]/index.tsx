@@ -14,23 +14,6 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
     const { name } = router.query
 
     const title = `${name}さんのギャラリー | アニマルアバターメーカー`
-    if (images.length === 0) {
-        return <>
-            <Head>
-                <title>{title}</title>
-                <meta
-                    property="og:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-                />
-                <meta
-                    name="twitter:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-                />
-            </Head>
-            <NoAvatar name={name as string} inputImages={inputImages} />
-        </>
-    }
-
     return (
         <>
             <Head>
@@ -55,8 +38,17 @@ export const getStaticProps: GetStaticProps = async (context) => {
     //URLからパラメータを取得 
     const { name } = context.params
     const reducedResults = await getAllImages(name as string)
-    const inputResults = await getInputImages(name as string)
 
+    // 画像がなければリダイレクト
+    if (reducedResults.length === 0) {
+        return {
+            redirect: {
+                permanent: false, // 永続的なリダイレクトかどうか
+                destination: '/' + name + "/create", // リダイレクト先
+            },
+        }
+    }
+    const inputResults = await getInputImages(name as string)
     return {
         props: {
             images: reducedResults,

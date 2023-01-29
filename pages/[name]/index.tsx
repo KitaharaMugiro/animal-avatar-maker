@@ -40,6 +40,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     const reducedResults = await getAllImages(name as string)
 
     // 画像がなければリダイレクト
+    // TODO: リダイレクトじゃなくてリンクを表示させる形にしたい
     if (reducedResults.length === 0) {
         return {
             redirect: {

@@ -73,7 +73,7 @@ export default (props: Props) => {
 
         {isInputUploaded &&
             <div className="mt-4">
-                <p className="text-lg">STEP3: プランを選ぶ</p>
+                <p className="text-lg">プランを選ぶ</p>
                 <PlanSelector plan={plan} setPlan={setPlan} />
             </div>
         }

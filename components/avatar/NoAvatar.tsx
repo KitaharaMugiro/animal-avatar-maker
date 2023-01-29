@@ -27,7 +27,7 @@ export default (props: Props) => {
                 body: JSON.stringify({
                     user_id: props.name,
                     plan: plan,
-                    prompt_version: 3,
+                    prompt_version: 4,
                     class_name: "dog"
                 })
             })

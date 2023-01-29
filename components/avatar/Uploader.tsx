@@ -20,8 +20,9 @@ export default (props: Props) => {
         const promises = []
         for (const image of Array.from(images)) {
 
+            //TODO: もうちょっと圧縮できないかな？？
             const options = {
-                maxSizeMB: 1,
+                maxSizeMB: 0.5,
                 maxWidthOrHeight: 1024,
                 useWebWorker: true
             }

@@ -2,7 +2,7 @@ import Head from "next/head"
 import { CloudinaryImageProps } from "../../utils/types"
 import Uploader from "./Uploader"
 import Image from "next/image"
-import { imageUrl, thumbailImageUrl } from "../../utils/imageUrl"
+import { imageUrl } from "../../utils/imageUrl"
 import PlanSelector from "./PlanSelector"
 import { useState } from "react"
 
@@ -52,13 +52,10 @@ export default (props: Props) => {
         } else {
             return (
                 <>
-                    <div className="mt-4">
-                        <p className="text-lg">STEP1: 画像を正方形(512×512)にリサイズしてください。PCの場合は以下のリンクがおすすめです。スマホの場合はスクエアで保存し直してください。</p>
-                        <a href="https://www.birme.net/?target_width=512&target_height=512" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">https://www.birme.net/</a>
-                    </div>
+
 
                     <div className="mt-4">
-                        <p className="text-lg">STEP2: リサイズした画像をアップロードします</p>
+                        <p className="text-lg">ペットの写真を10枚ほどアップロードしてください</p>
                         {/* リサイズした画像をアップロードしよう */}
                         <Uploader name={props.name} />
                     </div></>)

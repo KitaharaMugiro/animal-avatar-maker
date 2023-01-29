@@ -1,10 +1,10 @@
-import { GetStaticProps, GetStaticPaths, GetServerSideProps } from "next"
+import { GetServerSideProps } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import NoAvatar from "../../components/avatar/NoAvatar"
-import { getInputImages } from "../../utils/getImages"
-import { CloudinaryImageProps } from "../../utils/types"
+import NoAvatar from "../../components/avatar/NoAvatar";
+import { getInputImages } from "../../utils/getImages";
+import { CloudinaryImageProps } from "../../utils/types";
 
 export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const router = useRouter()

@@ -1,5 +1,6 @@
 import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
+import imageCompression from 'browser-image-compression';
 
 interface Props {
     name: string;
@@ -18,8 +19,15 @@ export default (props: Props) => {
         let i = 0;
         const promises = []
         for (const image of Array.from(images)) {
+
+            const options = {
+                maxSizeMB: 1,
+                maxWidthOrHeight: 1024,
+                useWebWorker: true
+            }
+            const compressedFile = await imageCompression(image, options);
             const body = new FormData();
-            body.append("file", image);
+            body.append("file", compressedFile);
             body.append("name", props.name)
             body.append("file_name", String(i) + ".png")
             const res = fetch("/api/cloudinary_upload", {
@@ -38,7 +46,7 @@ export default (props: Props) => {
     return <div>
         <div>
             <div>
-                <label className="block text-sm font-medium text-gray-700">アバターを作成したいペットのみが写っている写真をお選びください</label>
+                <label className="block text-sm font-medium text-gray-700"></label>
 
                 <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                     <div className="space-y-1 text-center">

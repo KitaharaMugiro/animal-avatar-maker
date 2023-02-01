@@ -52,7 +52,6 @@ const Home: NextPage = ({ images: _images }: { images: CloudinaryImageProps[] })
             </Head>
             <main className="mx-auto max-w-[1960px] p-4">
                 {/* ヘッダー */}
-                {/* <MyHeader headerVisible={headerVisible} /> */}
 
                 {/* モーダル */}
                 {photoId && (

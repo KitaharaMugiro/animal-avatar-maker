@@ -1,10 +1,9 @@
 export default () => {
     return <footer className="p-4 mt-10 bg-white  md:px-6 md:py-8 bg-gray-400">
         <div className="sm:flex sm:items-center sm:justify-between">
-            <a href="https://flowbite.com/" className="flex items-center mb-4 sm:mb-0">
+            <a href="/" className="flex items-center mb-4 sm:mb-0">
                 <span className="self-center text-xs whitespace-nowrap">Presented by</span>
-
-                <img src="/icon.png" className="h-4 ml-3 mr-1" alt="Flowbite Logo" />
+                <img src="/icon.png" className="h-4 ml-3 mr-1" alt="Logo" />
                 <span className="self-center text-md font-semibold whitespace-nowrap">アニマルアバターメーカー</span>
             </a>
             <ul className="flex flex-wrap items-center mb-6 text-sm text-gray-500 sm:mb-0">

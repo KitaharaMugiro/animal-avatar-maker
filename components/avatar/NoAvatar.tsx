@@ -5,12 +5,14 @@ import Image from "next/image"
 import { imageUrl } from "../../utils/imageUrl"
 import PlanSelector from "./PlanSelector"
 import { useState } from "react"
+import { useRouter } from "next/router"
 
 interface Props {
     name: string,
     inputImages: CloudinaryImageProps[]
 }
 export default (props: Props) => {
+    const router = useRouter()
     const isInputUploaded = props.inputImages.length > 0
     const [plan, setPlan] = useState("none")
     const readyToCreate = plan !== "none" && isInputUploaded
@@ -32,7 +34,7 @@ export default (props: Props) => {
                 })
             })
             //リロード
-            window.location.reload()
+            router.push("/" + props.name + "/status")
         }
     }
 
@@ -90,3 +92,4 @@ export default (props: Props) => {
     </div>
 
 }
+

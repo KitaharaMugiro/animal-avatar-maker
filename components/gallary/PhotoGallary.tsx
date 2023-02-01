@@ -37,8 +37,6 @@ export default (props: Props) => {
     }
 
     return <main className="mx-auto max-w-[1960px] p-4">
-        {/* ヘッダー */}
-        {/* <MyHeader headerVisible={headerVisible} /> */}
 
         {/* モーダル */}
         {photoId && (

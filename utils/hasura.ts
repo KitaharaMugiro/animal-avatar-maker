@@ -1,6 +1,6 @@
 import { request, gql, GraphQLClient } from 'graphql-request'
 
-export const hasuraRequest = (query, variables) => {
+export const hasuraRequest = (query, variables = {}) => {
     const url = "https://main-airedale-23.hasura.app/v1/graphql"
 
 

@@ -1,5 +1,4 @@
 import formidable from "formidable";
-import fs from "fs";
 import cloudinary from "../../utils/cloudinary";
 
 export const config = {

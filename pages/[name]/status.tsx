@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
 import StatusDisplay from "../../components/avatar/status/StatusDisplay"
 import MyFooter from "../../components/common/MyFooter"
-import MyHeader from "../../components/MyHeader"
+import MyHeader from "../../components/common/MyHeader"
 
 const StatusPage = () => {
     const router = useRouter()

@@ -66,10 +66,6 @@ export default (props: Props) => {
     }
 
     return <div className="bg-gray-50 p-5">
-        {/* まずBirmeでリサイズすることを伝える */}
-        <div className="text-center">
-            <h1 className="text-3xl font-bold">アニマルアバターメーカー</h1>
-        </div>
 
         {uploadOrPreviewRender()}
 

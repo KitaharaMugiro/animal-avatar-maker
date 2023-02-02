@@ -5,7 +5,7 @@ import imageCompression from 'browser-image-compression';
 // http://localhost:3000/dev/uploader にアクセスする
 // ここに犬の画像３枚を https://www.notion.so/ecf43b7396124d7b86a6745b35fd19a7#7ce34123812f4515990107e7ece1def0 のようにかっこよく出す
 // いい感じにできたらスクショを撮って報告
-
+// ※ tailwindを使ってください 「tailwind　画像を傾ける」とかで調べると出てきます (例: https://zenn.dev/unreact/articles/tailwindcss-transforms-rotate)
 
 export default () => {
 

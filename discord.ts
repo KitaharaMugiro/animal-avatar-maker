@@ -22,6 +22,7 @@ export default async (req, res) => {
         // const json = await response.json();
         console.log(response.status);
     }
+    
     await main();
     res.status(200).json({
         message: "ok"

@@ -1,5 +1,6 @@
 import formidable from "formidable";
 import cloudinary from "../../utils/cloudinary";
+import { discord_notification } from "../../utils/discord_notification";
 
 export const config = {
     api: {
@@ -22,6 +23,7 @@ const saveFile = async (file, name, file_name) => {
             public_id: `input/${name}/${file_name}`,
             resource_type: "image"
         })
+
 };
 
 export default (req, res) => {

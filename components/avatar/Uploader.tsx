@@ -1,6 +1,7 @@
 import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
+import { discord_notification } from "../../utils/discord_notification";
 
 interface Props {
     name: string;
@@ -38,7 +39,10 @@ export default (props: Props) => {
             promises.push(res)
             i++;
         }
+
+        //TODO: ロード中みたいにしたい。あとダブルクリックできないようにしたい。
         await Promise.all(promises)
+        await discord_notification(`Cloudinaryにinput画像がアップロードされました(user_id: ${name}`)
         alert("アップロードが完了しました。")
         //リロード
         window.location.reload();

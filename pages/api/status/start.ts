@@ -1,4 +1,5 @@
 import { request, gql } from 'graphql-request'
+import { discord_notification } from '../../../utils/discord_notification';
 import { hasuraRequest } from "../../../utils/hasura";
 
 
@@ -42,6 +43,7 @@ export default async (req, res) => {
     }
 
     const hasuraResponse = await hasuraRequest(query, variables)
+    await discord_notification(`Waitリストにリクエストが追加されました。(user_id: ${user_id}, class_name: ${class_name})`)
     console.log(hasuraResponse)
     res.status(200).json(hasuraResponse)
 };

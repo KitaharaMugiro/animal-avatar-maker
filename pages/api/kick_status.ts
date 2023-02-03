@@ -2,6 +2,7 @@ import formidable from "formidable";
 import cloudinary from "../../utils/cloudinary";
 import { request, gql } from 'graphql-request'
 import { hasuraRequest } from "../../utils/hasura";
+import { discord_notification } from "../../utils/discord_notification";
 
 
 export default async (req, res) => {
@@ -26,6 +27,6 @@ export default async (req, res) => {
     const variables = { "user_id": user_id, "plan": plan, "prompt_version": prompt_version, "class_name": class_name }
 
     const hasuraResponse = await hasuraRequest(query, variables)
-    console.log(hasuraResponse)
+    await discord_notification(`Waitリストにリクエストが追加されました。(user_id: ${user_id}, class_name: ${class_name})`)
     res.status(200).json(hasuraResponse)
 };

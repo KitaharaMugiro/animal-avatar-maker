@@ -1,6 +1,8 @@
 import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
+import Head from 'next/head'
+import Image from 'next/image'
 
 // http://localhost:3000/dev/uploader にアクセスする
 // ここに犬の画像３枚を https://www.notion.so/ecf43b7396124d7b86a6745b35fd19a7#7ce34123812f4515990107e7ece1def0 のようにかっこよく出す
@@ -33,6 +35,9 @@ export default () => {
                 >
                     <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                         <div className="space-y-1 text-center">
+                            <div>
+                                <Image class="rounded-lg transform rotate-0" className="mx-auto my-4" src="/uchinoko/uploader_1.png" alt="うちの子" width={250} height={250} unoptimized />
+                            </div>
                             <svg
                                 className="mx-auto h-12 w-12 text-gray-400"
                                 stroke="currentColor"

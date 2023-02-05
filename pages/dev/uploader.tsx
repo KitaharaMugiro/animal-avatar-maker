@@ -36,10 +36,10 @@ export default () => {
                     <div className="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
                         <div className="space-y-1 text-center">
                             <div>
-                                <Image class="rounded-lg transform rotate-0" className="mx-auto my-4" src="/uchinoko/uploader_1.png" alt="うちの子" width={250} height={250} unoptimized />
+                                <Image className="flex justify-center mx-auto my-4" src="/uchinoko/uploader_2.png" alt="うちの子" width={200} height={200} unoptimized />
                             </div>
                             <svg
-                                className="mx-auto h-12 w-12 text-gray-400"
+                                className="text-5xl mx-auto h-12 w-12 text-gray-400"
                                 stroke="currentColor"
                                 fill="none"
                                 viewBox="0 0 48 48"
@@ -54,14 +54,18 @@ export default () => {
                             </svg>
 
 
-                            <span>クリックして写真を選ぶ</span>
+                            <span className="text-4xl font-large">クリックして写真を選ぶ</span>
                             <input id="file-upload" name="file-upload" type="file" className="sr-only"
                                 multiple
                                 accept="image/png, image/jpeg"
-                                onChange={uploadToClient} />
-
-
+                                onChange={uploadToClient}
+                                />
                             <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
+              
+                            <div className="opacity-70 text-base text-gray-600">
+                                <p className="mt-1 flex justify-center">写真は10枚から20枚程お選びください</p>
+                                <p className="mt-1 flex justify-center">顔がよく写っている写真や服を着ていない写真をお選びいただくと、精度が上がります</p>
+                            </div>
                         </div>
                     </div>
                 </label>
@@ -78,9 +82,7 @@ export default () => {
             ))}
         </div>}
 
-
-
-        <div className="bg-gray-50 px-4 py-3 text-right sm:px-6">
+        <div className="mt-1 flex justify-center bg-gray-50 px-4 py-3 text-right sm:px-6">
             <button
                 type="submit"
                 onClick={uploadToServer}
@@ -89,5 +91,6 @@ export default () => {
                 アップロード
             </button>
         </div>
+        
     </div >
 }

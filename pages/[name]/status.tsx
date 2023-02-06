@@ -13,6 +13,8 @@ const StatusPage = () => {
         fetch('/api/get_status?user_id=' + name).then(res => res.json()).then(data => {
             if (data.avatar_generate_status && data.avatar_generate_status.length > 0) {
                 setStatus(data.avatar_generate_status[0].status)
+            } else {
+                setStatus("error")
             }
         })
     }, [name])

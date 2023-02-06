@@ -1,7 +1,7 @@
+import WaitingStatusCard from "./card/WaitingStatusCard"
 import GeneratedStatus from "./GeneratedStatus"
 import GeneratingStatus from "./GeneratingStatus"
 import NoStatus from "./NoStatus"
-import StatusCard from "./StatusCard"
 
 interface Props {
     status: string
@@ -29,7 +29,7 @@ export default (props: Props) => {
 
     return (
         <>
-            {/* <StatusCard /> */}
+            <WaitingStatusCard />
             {renderByStatus()}
         </>
     )

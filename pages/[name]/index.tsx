@@ -13,6 +13,11 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
     const router = useRouter()
     const { name } = router.query
 
+    const onClickKifu = () => {
+        //https://buy.stripe.com/6oE7vY8i80x81TG8wy
+        window.open('https://buy.stripe.com/6oE7vY8i80x81TG8wy', '_blank')
+    }
+
     const title = `${name}さんのギャラリー | アニマルアバターメーカー`
     return (
         <>
@@ -28,6 +33,15 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
                 />
             </Head>
             <PhotoGallary images={images} inputImages={inputImages} />
+            <button
+                onClick={onClickKifu}
+                className="fixed z-90 bottom-10 right-8 text-white px-4 w-auto h-10 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
+                <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" className="w-6 h-6 inline-block mr-1">
+                    <path fill="#FFFFFF" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0
+                                    c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z"/>
+                </svg>
+                <span>寄付する</span>
+            </button>
         </>
     )
 }

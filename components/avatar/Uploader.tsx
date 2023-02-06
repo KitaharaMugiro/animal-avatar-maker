@@ -96,6 +96,7 @@ export default (props: Props) => {
 
                             <div className="opacity-70 text-base text-gray-600">
                                 <p className="mt-1 flex justify-center">写真は10枚から20枚程お選びください</p>
+                                <p className="mt-1 flex justify-center">必ず一匹で写っている写真でお願いします！</p>
                                 <p className="mt-1 flex justify-center">顔がよく写っている写真や服を着ていない写真をお選びいただくと、精度が上がります</p>
                             </div>
                         </div>

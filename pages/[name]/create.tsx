@@ -13,6 +13,17 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const router = useRouter()
     const { name } = router.query
 
+    useEffect(() => {
+        //TODO: latestのステータスを取得するように変更する
+        fetch('/api/get_status?user_id=' + name).then(res => res.json()).then(data => {
+            if (data.avatar_generate_status && data.avatar_generate_status.length > 0) {
+                const status = data.avatar_generate_status[0].status
+                if (status != "generated" && status != "complete") {
+                    router.push("/" + name + "/status")
+                }
+            }
+        })
+    }, [name])
 
     const title = `${name}さんのアバターを作る | アニマルアバターメーカー`
     return <>
@@ -40,6 +51,11 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //URLからパラメータを取得 
     const { name } = context.params
     const inputResults = await getInputImages(name as string)
+
+    //すでにwaitingのステータスがあったらステータス画面にリダイレクト
+
+
+
     return {
         props: {
             inputImages: inputResults,

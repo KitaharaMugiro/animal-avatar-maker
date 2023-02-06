@@ -17,6 +17,15 @@ export default (props: Props) => {
     };
 
     const uploadToServer = async () => {
+        if (images && images.length < 10) {
+            alert("10枚以上の画像を選択してください。")
+            return;
+        }
+        if (images && images.length > 20) {
+            alert("20枚以下の画像を選択してください。")
+            return;
+        }
+
         let i = 0;
         const promises = []
         for (const image of Array.from(images)) {

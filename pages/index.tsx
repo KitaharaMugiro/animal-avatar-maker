@@ -27,9 +27,9 @@ const Home: NextPage = () => {
           <Image className="mx-auto my-4" src="/uchinoko/4.png" alt="うちの子" width={500} height={500} unoptimized />
           <Image className="mx-auto my-4" src="/uchinoko/8.png" alt="うちの子" width={500} height={500} unoptimized />
           <button
-            onClick={() => window.open('https://buy.stripe.com/bIYbMedCs6Vwcyk4gn?prefilled_promo_code=OPEN')}
+            onClick={() => window.open('https://buy.stripe.com/bIYbMedCs6Vwcyk4gn')}
             className="mx-auto my-10 bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-16 rounded-full">
-            さっそく申し込む <s>￥2,000</s>￥500
+            さっそく申し込む ￥2,000
           </button>
         </div>
 

@@ -43,6 +43,7 @@ export default () => {
                 </div>
             </div>
             )}
+            
         </div>
         <div className="mt-1 flex justify-center">
             <textarea className="focus:shadow-soft-primary-outline min-h-unset text-sm leading-5.6 ease-soft block appearance-none rounded-lg border divide-x border-4 border-purple-300 bg-white bg-clip-padding px-10 py-10 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none" name="" id="" placeholder={placeholder} value={state} />

@@ -33,7 +33,7 @@ export default () => {
                 return {
                     id: val.id,
                     title: val.title,
-                    image: imageUrlFromPath(val.image),
+                    image: imageUrlFromPath(val.example_image),
                     prompt: val.prompt.replace("{identifier}", "MY_PET")
                 }
             })

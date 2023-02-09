@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useState, useEffect } from "react"
-import StatusDisplay from "../../components/avatar/status/StatusDisplay"
+import LatestStatusDisplay from "../../components/avatar/status/LatestStatusDisplay"
 import MyFooter from "../../components/common/MyFooter"
 import MyHeader from "../../components/common/MyHeader"
 
@@ -21,7 +21,7 @@ const StatusPage = () => {
 
     return <>
         <MyHeader />
-        <StatusDisplay status={status} />
+        <LatestStatusDisplay status={status} />
         <MyFooter />
     </>
 }

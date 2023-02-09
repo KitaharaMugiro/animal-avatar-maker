@@ -1,6 +1,14 @@
 import Image from "next/image"
 
-export default () => {
+interface Props {
+    image: string
+    date: string
+    rank: number
+    waiting: number
+    plan: string
+}
+
+export default (props: Props) => {
     const image = "https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
 
     return <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">

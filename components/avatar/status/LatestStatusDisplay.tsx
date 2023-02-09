@@ -11,19 +11,6 @@ export default (props: Props) => {
     const { status } = props
     const renderByStatus = () => {
 
-        //TODO: 一時的にステータスを表示しない
-        return <div className="flex flex-col items-center justify-center h-screen p-5">
-            <div className="flex flex-col items-center justify-center">
-                <div className="text-2xl font-bold">
-                    アップロードありがとうございます！
-                    作成完了までしばらくお待ちください！
-                </div>
-                <div className="text-lg mt-2">
-                    だいたい2時間から5時間程度かかります。完了しましたらDMにてお知らせします。
-                </div>
-            </div>
-        </div>
-
         if (status === "") {
             return <div>ローディング</div>
         } else if (status === "waiting" || status === "preparing") {

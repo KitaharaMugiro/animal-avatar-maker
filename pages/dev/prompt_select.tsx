@@ -47,12 +47,12 @@ export default () => {
         setPrompt(() => e.prompt)
     }
 
-    const handleMouseEnter = (e) => {
-        setPlaceholder(() => e.target.alt)
+    const handleMouseEnter = (e: PromptExample) => {
+        setPlaceholder(() => e.prompt)
     }
 
-    const handleMouseLeave = (e) => {
-        setPlaceholder(() => "")
+    const handleMouseLeave = () => {
+        setPlaceholder(() => "ここにプロンプトが表示されます")
     }
 
     const onSubmit = () => {
@@ -76,7 +76,7 @@ export default () => {
                 <div className="m-1" key={val.prompt}>
                     <div className="mx-3 cursor-pointer"
                         onClick={() => onSelectPrompt(val)}
-                        onMouseEnter={handleMouseEnter}
+                        onMouseEnter={() => handleMouseEnter(val)}
                         onMouseLeave={handleMouseLeave}
                     >
                         <div className="w-1/1">

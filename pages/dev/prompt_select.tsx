@@ -24,6 +24,7 @@ type PromptExample = {
 
 export default () => {
     const [examples, setExamples] = useState<PromptExample[]>([])
+    const [name, setName] = useState('')
 
     useEffect(() => {
         // APIを呼び出す
@@ -42,7 +43,7 @@ export default () => {
     }, [])
 
     const [prompt, setPrompt] = useState("");
-    const [placeholder, setPlaceholder] = useState("ここにプロンプトが表示されます");
+    const [placeholder, setPlaceholder] = useState("");
     const onSelectPrompt = (e: PromptExample) => {
         setPrompt(() => e.prompt)
     }
@@ -69,6 +70,22 @@ export default () => {
         })
     }
 
+    const [textError, setTextError] = useState('')
+    const green_css = "bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
+    const red_css = "bg-red-50 border border-red-500 text-red-900 dark:text-grredeen-400 placeholder-red-700 dark:placeholder-red-500 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-red-500"
+    const [color, setColor] = useState(green_css)
+    const handleBlur = (e) => {
+        const mypet_flag = e.target.value
+        let mypet_text = 'MY_PET'
+        if (mypet_flag.match(mypet_text)) {
+          setTextError('')
+          setColor(green_css)
+        } else {
+            setTextError('MY_PETの文字を入れてください')
+            setColor(red_css)
+        }
+      }
+
     return <div >
         <p className="mt-1 flex justify-center px-6">プロンプトを選ぶ①</p>
         <div className="mt-3 flex flex-wrap justify-center bg-slate-100 p-3">
@@ -89,15 +106,21 @@ export default () => {
             )}
 
         </div>
+        
         <div className="mt-1 flex justify-center">
-
-
+        <form>            
+            <div className="mb-6">
+            <label htmlFor="prompt" className="block mb-2 text-sm font-medium">プロンプト</label>
             <textarea
                 value={prompt}
                 placeholder={placeholder}
                 onChange={(e) => setPrompt(e.target.value)}
-                id="message" html-rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-
+                onBlur={handleBlur}
+                id="prompt" html-rows="4"
+                className={color}></textarea>
+            {textError &&<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
+            </div>
+        </form>
         </div>
     </div>
 }

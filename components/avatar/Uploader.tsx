@@ -40,7 +40,7 @@ export default (props: Props) => {
             const body = new FormData();
             body.append("file", compressedFile);
             body.append("name", props.name)
-            body.append("file_name", String(i) + ".png")
+            body.append("file_name", String(i))
             const res = fetch("/api/cloudinary_upload", {
                 method: "POST",
                 body

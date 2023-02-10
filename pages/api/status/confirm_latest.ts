@@ -3,7 +3,7 @@ import { hasuraRequest } from "../../../utils/hasura";
 
 
 export default async (req, res) => {
-    const { user_id } = req.body;
+    const { user_id } = req.query;
 
     //現在の最新のステータスを取得する
 
@@ -12,6 +12,7 @@ export default async (req, res) => {
             wait_list(where: {user_id: {_eq: $user_id}}, order_by: {created_at: desc}, limit: 1) {
                 user_id
                 status
+                plan
                 class_name
                 created_at
                 updated_at
@@ -24,16 +25,18 @@ export default async (req, res) => {
     const hasuraResponse = await hasuraRequest(query, variables)
     if (hasuraResponse.wait_list.length === 0) {
         res.status(200).json({
-            status: null,
+            status: null
         })
     }
+    const statusData = hasuraResponse.wait_list[0]
 
     //もしwaitingであれば、何番目なのかも返す
-    if (hasuraResponse.wait_list[0].status === "waiting") {
+    if (statusData.status === "waiting") {
         const query = gql`
             query  {
                 wait_list(where: {status: {_eq: "waiting"}}, order_by: {created_at: asc}) {
                     user_id
+                    plan
                     status
                     class_name
                     created_at
@@ -46,14 +49,14 @@ export default async (req, res) => {
         const waiting_number = hasuraResponse.wait_list.length
         const your_number = hasuraResponse.wait_list.findIndex((wait_list) => wait_list.user_id === user_id) + 1
         res.status(200).json({
-            status: "waiting",
+            status: statusData,
             waiting_number: waiting_number,
             your_number: your_number
         })
 
     } else {
         res.status(200).json({
-            status: hasuraResponse.wait_list[0].status
+            status: statusData
         })
     }
 

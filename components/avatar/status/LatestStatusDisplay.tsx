@@ -1,19 +1,19 @@
+import { StatusData } from "../../../pages/[name]/status"
 import WaitingStatusCard from "./card/WaitingStatusCard"
 import GeneratedStatus from "./GeneratedStatus"
 import GeneratingStatus from "./GeneratingStatus"
 import NoStatus from "./NoStatus"
 
 interface Props {
-    status: string
+    statusData: StatusData
 }
 
 export default (props: Props) => {
-    const { status } = props
-    const renderByStatus = () => {
+    const { statusData } = props
+    const status = statusData?.status?.status || ""
 
-        if (status === "") {
-            return <div>ローディング</div>
-        } else if (status === "waiting" || status === "preparing") {
+    const renderByStatus = () => {
+        if (status === "waiting" || status === "preparing") {
             //TODO: ステータスが待機中であればステータスを表示する
             return <GeneratingStatus />
         } else if (status === "generating") {

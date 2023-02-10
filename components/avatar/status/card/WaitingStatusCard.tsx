@@ -1,7 +1,6 @@
 import Image from "next/image"
 
 interface Props {
-    image: string
     date: string
     rank: number
     waiting: number
@@ -9,20 +8,18 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const image = "https://images.unsplash.com/photo-1542156822-6924d1a71ace?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"
-
+    const image = "/prompts/generating.png"
     return <div className="w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
         <Image unoptimized className="object-cover w-full h-56" src={image} width={500} height={500} alt="avatar" />
 
         <div className="py-5 text-center">
-            <a href="#" className="block text-xl font-bold text-gray-800 dark:text-white" html-tabindex="0" role="link">2022/01/23</a>
-            <span className="text-sm text-gray-700 dark:text-gray-200">作成待ち(7人目/12人待ち)</span>
+            <a href="#" className="block text-xl font-bold text-gray-800 dark:text-white" html-tabindex="0" role="link">{props.date}</a>
+            <span className="text-sm text-gray-700 dark:text-gray-200">作成待ち({props.rank}人目/{props.waiting}人待ち)</span>
         </div>
 
         <div className="mt-3 flex items-end justify-between p-3">
             <p>
-                <span className="text-lg font-bold text-blue-500">Free</span>
-                {/* <span className="text-sm text-slate-400">/night</span> */}
+                <span className="text-lg font-bold text-blue-500">{props.plan}</span>
             </p>
 
             <div className="flex items-center space-x-1.5 rounded-lg bg-blue-500 px-4 py-1.5 text-white duration-100 hover:bg-blue-600">

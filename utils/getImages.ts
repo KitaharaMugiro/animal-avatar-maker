@@ -1,6 +1,7 @@
 import cloudinary from "./cloudinary"
 import { CloudinaryImageProps } from "./types"
 
+//サーバからしか呼べません
 export const getImages = async (name: string, date: string) => {
     const results = await cloudinary.v2.search
         .expression(`folder:output/${name}/${date}/*`)

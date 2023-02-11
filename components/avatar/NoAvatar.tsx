@@ -36,15 +36,23 @@ export default (props: Props) => {
     const readyToCreate = plan !== "none" && isInputUploaded && isValidEmail
     const prompt_use_num = PLAN_TABLE[plan].promptNum
     useEffect(() => {
-        if (prompt.length < prompt_use_num) {
-            setPrompts([...Array(prompt_use_num)].map(() => ""))
+        if (prompts.length < prompt_use_num) {
+            //元あったプロンプトは残したい
+            const newPrompts = [...Array(prompt_use_num)].map(() => "")
+            for (const i in prompts) {
+                newPrompts[i] = prompts[i]
+            }
+            setPrompts(newPrompts)
         }
     }, [plan])
 
     const onCreate = async () => {
-        console.log("confirm")
+        console.log({ prompts })
+        const submitPrompts = prompts.map((prompt) => {
+            return prompt.replace("MY_PET", "{identifier}")
+        }).slice(0, prompt_use_num)
+        console.log({ submitPrompts })
         if (confirm("アバターを作成しますか？")) {
-            //TODO: planやprompt_versionを選択できるようにする
             await fetch('/api/status/start', {
                 method: 'POST',
                 headers: {
@@ -55,9 +63,7 @@ export default (props: Props) => {
                     plan: plan,
                     email: email,
                     class_name: "dog",
-                    prompts: prompts.map((prompt) => {
-                        return prompt.replace("MY_PET", "{identifier}").slice(0, prompt_use_num)
-                    })
+                    prompts: submitPrompts
                 })
             })
             //リロード
@@ -70,7 +76,7 @@ export default (props: Props) => {
         if (isInputUploaded) {
             return <div>
 
-                <h1>アップロードいただいた画像</h1>
+                <h2>アップロードいただいた画像</h2>
                 <div className="mt-2 grid grid-cols-5 gap-y-2 gap-x-4 sm:grid-cols-8">
                     {props.inputImages.map((file) => (
                         <div key={file.public_id} className="relative group">
@@ -96,7 +102,6 @@ export default (props: Props) => {
 
     const renderAfterInputImage = () => {
         return (<div className="mt-10">
-            <h1>必要事項の入力</h1>
 
             <div className="mt-4 max-w-xl">
                 <MailForm email={email} setEmail={setEmail} />

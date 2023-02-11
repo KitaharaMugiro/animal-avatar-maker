@@ -35,7 +35,7 @@ export default function PromptSelector(props: Props) {
     }, [])
 
     const [prompt, setPrompt] = useState("");
-    const [placeholder, setPlaceholder] = useState("ここにイラスト作成のための呪文が表示されます");
+    const [placeholder, setPlaceholder] = useState("作りたいイラストをタップするか、こちらに作りたいイラストを英語で記載してください");
     const onSelectPrompt = (e: PromptExample) => {
         onSetPrompt(e.prompt)
     }
@@ -45,7 +45,7 @@ export default function PromptSelector(props: Props) {
     }
 
     const handleMouseLeave = () => {
-        setPlaceholder(() => "ここにイラスト作成のための呪文が表示されます")
+        setPlaceholder(() => "作りたいイラストをタップするか、こちらに作りたいイラストを英語で記載してください")
     }
 
     const [textError, setTextError] = useState('')
@@ -65,43 +65,42 @@ export default function PromptSelector(props: Props) {
     }
 
     const ShowExamplePrompt = () => {
-        return <div>
-            <p className="mt-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
-            <div className="mt-3 flex flex-wrap justify-center bg-slate-100 p-3">
-                {examples.map((val) =>
-                    <div className="m-1" key={val.prompt}>
-                        <div className="mx-3 cursor-pointer"
-                            onClick={() => onSelectPrompt(val)}
-                            onMouseEnter={() => handleMouseEnter(val)}
-                            onMouseLeave={handleMouseLeave}
-                        >
-                            <div className="w-1/1">
-                                <img className="rounded-xl hover:shadow-2xl w-32 h-32 md:w-48 md:h-48"
-                                    src={val.image} width={200} height={200}
-                                    alt={val.title} />
-                                <p className="mt-1 flex justify-center">{val.title}</p></div>
-                        </div>
+        return <div className="mt-1 flex flex-wrap justify-center bg-slate-100 p-3">
+            {examples.map((val) =>
+                <div className="m-1" key={val.prompt}>
+                    <div className="mx-3 cursor-pointer"
+                        onClick={() => onSelectPrompt(val)}
+                        onMouseEnter={() => handleMouseEnter(val)}
+                        onMouseLeave={handleMouseLeave}
+                    >
+                        <div className="w-1/1">
+                            <img className="rounded-xl hover:shadow-2xl w-32 h-32 md:w-48 md:h-48"
+                                src={val.image} width={200} height={200}
+                                alt={val.title} />
+                            <p className="mt-1 flex justify-center">{val.title}</p></div>
                     </div>
-                )}
-            </div>
+                </div>
+            )}
         </div>
+
     }
 
 
     return <div >
-        <ShowExamplePrompt />
-        <div>
-            <div className="mt-1 flex justify-center">
-                <textarea
-                    value={prompt}
-                    placeholder={placeholder}
-                    onBlur={(e) => onSetPrompt(e.target.value)}
-                    onChange={(e) => setPrompt(e.target.value)}
-                    id="prompt" html-rows="4"
-                    className={color}>
-                </textarea>
-            </div>
-            {textError && <p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
+        <p className="mb-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
+
+        <div className="mb-1 flex justify-center">
+            <textarea
+                value={prompt}
+                placeholder={placeholder}
+                onBlur={(e) => onSetPrompt(e.target.value)}
+                onChange={(e) => setPrompt(e.target.value)}
+                id="prompt" html-rows="4"
+                className={color}>
+            </textarea>
         </div>
+        {textError && <p className="mb-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
+        <ShowExamplePrompt />
+
     </div>
 }

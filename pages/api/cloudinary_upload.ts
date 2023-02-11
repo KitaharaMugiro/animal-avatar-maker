@@ -10,7 +10,6 @@ export const config = {
 const post = async (req, res) => {
     const form = new formidable.IncomingForm();
     form.parse(req, async function (err, fields, files) {
-        console.log({ fields })
         await saveFile(files.file, fields.name, fields.file_name);
         return res.status(201).send("");
     });

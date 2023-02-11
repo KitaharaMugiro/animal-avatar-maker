@@ -35,9 +35,9 @@ export default (props: Props) => {
     }
 
     const statusText = () => {
-        if (props.status === "generating") return "現在画像作成中"
-        else if (props.status === "waiting") return `作成待ち(${props.rank}人目/${props.waiting}人待ち)`
-        else return `学習中(あと1時間程度で完成するよ)`
+        if (props.status === "generating") return <span>現在画像作成中</span>
+        else if (props.status === "waiting") return <span>{`作成待ち(${props.rank}人目/${props.waiting}人待ち)`}</span>
+        else return <span>学習中(あと1時間程度で完成するよ)</span>
     }
 
     return <div className="m-3 w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
@@ -45,7 +45,8 @@ export default (props: Props) => {
 
         <div className="py-5 text-center">
             <span className="block text-xl font-bold text-gray-800" html-tabindex="0" role="link">{props.date}</span>
-            <span className="text-sm text-gray-700">{statusText()}</span>
+            <p className="text-sm text-gray-700">{statusText()}</p>
+            <p className="text-xs text-gray-700 mt-2">作成完了時にメールで通知します</p>
         </div>
 
         <div className="mt-3 flex items-end justify-between p-3">

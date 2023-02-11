@@ -17,7 +17,7 @@ interface Props {
     index: number
 }
 
-export default function ShowPrompts(props: Props) {
+export default function PromptSelector(props: Props) {
     const [examples, setExamples] = useState<PromptExample[]>([])
     useEffect(() => {
         // APIを呼び出す
@@ -35,7 +35,7 @@ export default function ShowPrompts(props: Props) {
     }, [])
 
     const [prompt, setPrompt] = useState("");
-    const [placeholder, setPlaceholder] = useState("ここにプロンプトが表示されます");
+    const [placeholder, setPlaceholder] = useState("ここにイラスト作成のための呪文が表示されます");
     const onSelectPrompt = (e: PromptExample) => {
         onSetPrompt(e.prompt)
     }
@@ -45,7 +45,7 @@ export default function ShowPrompts(props: Props) {
     }
 
     const handleMouseLeave = () => {
-        setPlaceholder(() => "ここにプロンプトが表示されます")
+        setPlaceholder(() => "ここにイラスト作成のための呪文が表示されます")
     }
 
     const [textError, setTextError] = useState('')
@@ -66,7 +66,7 @@ export default function ShowPrompts(props: Props) {
 
     const ShowExamplePrompt = () => {
         return <div>
-            <p className="mt-1 flex justify-center px-6">プロンプトを選ぶ ({props.index}個目)</p>
+            <p className="mt-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
             <div className="mt-3 flex flex-wrap justify-center bg-slate-100 p-3">
                 {examples.map((val) =>
                     <div className="m-1" key={val.prompt}>
@@ -76,8 +76,8 @@ export default function ShowPrompts(props: Props) {
                             onMouseLeave={handleMouseLeave}
                         >
                             <div className="w-1/1">
-                                <img className="rounded-xl hover:shadow-2xl"
-                                    src={val.image} width={100} height={100}
+                                <img className="rounded-xl hover:shadow-2xl w-32 h-32 md:w-48 md:h-48"
+                                    src={val.image} width={200} height={200}
                                     alt={val.title} />
                                 <p className="mt-1 flex justify-center">{val.title}</p></div>
                         </div>

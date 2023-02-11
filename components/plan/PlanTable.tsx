@@ -29,7 +29,7 @@ export default () => {
                         お試し
                     </th>
                     <td className="px-6 py-4">
-                        2枚
+                        2種類x2枚
                     </td>
                     <td className="px-6 py-4">
                         低い
@@ -46,7 +46,7 @@ export default () => {
                         スタンダード
                     </th>
                     <td className="px-6 py-4">
-                        10枚
+                        5種類x2枚
                     </td>
                     <td className="px-6 py-4">
                         高い
@@ -55,7 +55,7 @@ export default () => {
                         優先
                     </td>
                     <td className="px-6 py-4">
-                        1280円
+                        980円
                     </td>
                 </tr>
 

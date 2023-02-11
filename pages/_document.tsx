@@ -7,7 +7,7 @@ class MyDocument extends Document {
   static getInitialProps = getInitialProps;
   render() {
     return (
-      <Html lang="en">
+      <Html lang="ja">
         <Head>
           <link rel="icon" href="/favicon.ico" />
           <link rel="preconnect" href="https://fonts.googleapis.com" />

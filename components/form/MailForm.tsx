@@ -7,9 +7,10 @@ export default (props: Props) => {
 
     return <div>
         <label htmlFor="plan" className="block mb-2 text-lg font-medium text-gray-900">
-            通知先のメールアドレスを入力(作成に数時間から数日かかります)
+            メールアドレス
         </label>
         <input
+            required
             id="email"
             type="email"
             value={props.email}

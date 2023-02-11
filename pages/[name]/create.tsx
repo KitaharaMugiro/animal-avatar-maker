@@ -24,14 +24,6 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     return <>
         <Head>
             <title>{title}</title>
-            <meta
-                property="og:image"
-                content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-            />
-            <meta
-                name="twitter:image"
-                content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-            />
         </Head>
         <MyHeader />
         <NoAvatar name={name as string} inputImages={inputImages} />

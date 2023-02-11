@@ -25,12 +25,12 @@ export default (props: Props) => {
 
     }
 
-    return <div className="m-3 w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800">
+    return <div className="m-3 w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
         <Image unoptimized className="object-cover w-full h-56" src={image} width={500} height={500} alt="avatar" />
 
         <div className="py-5 text-center">
-            <a href="#" className="block text-xl font-bold text-gray-800 dark:text-white" html-tabindex="0" role="link">{props.date}</a>
-            <span className="text-sm text-gray-700 dark:text-gray-200">作成完了</span>
+            <a href="#" className="block text-xl font-bold text-gray-800" html-tabindex="0" role="link">{props.date}</a>
+            <span className="text-sm text-gray-700">作成完了</span>
         </div>
 
         <div className="mt-3 flex items-end justify-between p-3">

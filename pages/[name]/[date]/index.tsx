@@ -32,23 +32,23 @@ const Home: NextPage = ({ images: _images }: { images: CloudinaryImageProps[] })
     if (!showMore) {
         images = _images.filter(i => i.mosaic !== true)
     }
-    const randomPickedImage = images[Math.floor(Math.random() * images.length)]
-    const year = date?.toString().slice(0, 4)
-    const month = date?.toString().slice(4, 6)
-
+    let pickedImage = undefined
+    if (images.length > 0) {
+        pickedImage = imageUrl(images[0].public_id, images[0].format, false, false)
+    }
 
     return (
         <>
             <Head>
                 <title>{name}さんのアバター {date} | アニマルアバターメーカー</title>
-                <meta
+                {pickedImage && <><meta
                     property="og:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
+                    content={pickedImage}
                 />
-                <meta
-                    name="twitter:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-                />
+                    <meta
+                        name="twitter:image"
+                        content={pickedImage}
+                    /></>}
             </Head>
             <main className="mx-auto max-w-[1960px] p-4">
                 {/* ヘッダー */}

@@ -20,14 +20,13 @@ export default (props: Props) => {
         const createdAt = new Date(statusData?.status?.created_at)
         //YYYYMMDDで表示する
         const dateText = getYYYYMMDD(createdAt)
-        if (status === "waiting" || status === "preparing") {
+        if (status === "waiting" || status === "preparing" || status === "learning") {
             return <WaitingStatusCard
                 date={createdAt.toLocaleString()}
                 rank={statusData.your_number}
                 waiting={statusData.waiting_number}
                 plan={statusData.status.plan}
-                isGenerating={statusData.status.status === "generating"}
-                isWaiting={statusData.status.status === "waiting"}
+                status={statusData.status.status}
             />
         } else if (status === "generating") {
             return <WaitingStatusCard
@@ -35,8 +34,7 @@ export default (props: Props) => {
                 rank={statusData.your_number}
                 waiting={statusData.waiting_number}
                 plan={statusData.status.plan}
-                isGenerating={statusData.status.status === "generating"}
-                isWaiting={statusData.status.status === "waiting"}
+                status={statusData.status.status}
             />
         } else if (status === "generated" || status === "complete") {
             //TODO: ステータスが完了であればギャラリーに遷移するリンクと、追加で作成する選択肢を提示する

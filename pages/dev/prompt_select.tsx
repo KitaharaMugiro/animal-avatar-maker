@@ -1,9 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { CloudinaryImageProps } from "../../utils/types";
-import imageCompression from 'browser-image-compression';
-import Head from 'next/head'
-import Image from 'next/image'
-import { imageUrlFromPath, thumbailImageUrl } from "../../utils/imageUrl";
+import { useEffect, useState } from "react";
+import { imageUrlFromPath } from "../../utils/imageUrl";
 // http://localhost:3000/dev/prompt_select にアクセスする
 // STEP1: APIからプロンプトの例を取得する (実装済み)
 // /api/prompts/exampleから取得
@@ -96,7 +92,7 @@ export default () => {
                 value={prompt}
                 placeholder={placeholder}
                 onChange={(e) => setPrompt(e.target.value)}
-                id="message" html-rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
+                id="message" html-rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500"></textarea>
 
         </div>
     </div>

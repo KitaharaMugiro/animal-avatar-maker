@@ -10,7 +10,6 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="icon" href="/favicon.ico" />
-
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" />
           <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500&display=swap" rel="stylesheet" />
@@ -19,7 +18,7 @@ class MyDocument extends Document {
           <meta property="og:site_name" content="アニマルアバターメーカー" />
           <meta property="og:description" content="大好きなワンちゃんネコちゃんの高品質なイラストをお届けします" />
           <meta property="og:url" content="https://uchinoko.yunomy.com/" />
-          <meta property="og:image" content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214" />
+          <meta property="og:image" content="https://res.cloudinary.com/ddeqwb08j/image/upload/v1673347148/ogp_it9trc.png" />
           <meta property="og:type" content="website" />
           <meta name="twitter:site" content="@ai_avatar_maker" />
           <meta name="twitter:creator" content="@ai_avatar_maker" />

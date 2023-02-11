@@ -4,6 +4,7 @@ import imageCompression from 'browser-image-compression';
 import Head from 'next/head'
 import Image from 'next/image'
 import { imageUrlFromPath, thumbailImageUrl } from "../../utils/imageUrl";
+import ShowPrompts from "../../components/avatar/ShowPrompts";
 // http://localhost:3000/dev/prompt_select にアクセスする
 // STEP1: APIからプロンプトの例を取得する (実装済み)
 // /api/prompts/exampleから取得
@@ -23,104 +24,8 @@ type PromptExample = {
 }
 
 export default () => {
-    const [examples, setExamples] = useState<PromptExample[]>([])
-    const [name, setName] = useState('')
-
-    useEffect(() => {
-        // APIを呼び出す
-        fetch("/api/prompts/example").then((res) => (res.json())).then((data) => {
-            console.log({ data })
-            const prompts: PromptExample[] = data.prompts.map(val => {
-                return {
-                    id: val.id,
-                    title: val.title,
-                    image: imageUrlFromPath(val.image),
-                    prompt: val.prompt.replace("{identifier}", "MY_PET")
-                }
-            })
-            setExamples(prompts)
-        })
-    }, [])
-
-    const [prompt, setPrompt] = useState("");
-    const [placeholder, setPlaceholder] = useState("");
-    const onSelectPrompt = (e: PromptExample) => {
-        setPrompt(() => e.prompt)
-    }
-
-    const handleMouseEnter = (e: PromptExample) => {
-        setPlaceholder(() => e.prompt)
-    }
-
-    const handleMouseLeave = () => {
-        setPlaceholder(() => "ここにプロンプトが表示されます")
-    }
-
-    const onSubmit = () => {
-        const data = {
-            user_id: "test",
-            class_name: "dog",
-            prompts: [prompt]
-        }
-        fetch("/api/status/start", {
-            method: "POST",
-            body: JSON.stringify(data)
-        }).then((res) => (res.json())).then((data) => {
-            console.log({ data })
-        })
-    }
-
-    const [textError, setTextError] = useState('')
-    const green_css = "bg-green-50 border border-green-500 text-green-900 dark:text-green-400 placeholder-green-700 dark:placeholder-green-500 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-gray-700 dark:border-green-500"
-    const red_css = "bg-red-50 border border-red-500 text-red-900 dark:text-grredeen-400 placeholder-red-700 dark:placeholder-red-500 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-red-500"
-    const [color, setColor] = useState(green_css)
-    const handleBlur = (e) => {
-        const mypet_flag = e.target.value
-        let mypet_text = 'MY_PET'
-        if (mypet_flag.match(mypet_text)) {
-          setTextError('')
-          setColor(green_css)
-        } else {
-            setTextError('MY_PETの文字を入れてください')
-            setColor(red_css)
-        }
-      }
-
     return <div >
-        <p className="mt-1 flex justify-center px-6">プロンプトを選ぶ①</p>
-        <div className="mt-3 flex flex-wrap justify-center bg-slate-100 p-3">
-            {examples.map((val) =>
-                <div className="m-1" key={val.prompt}>
-                    <div className="mx-3 cursor-pointer"
-                        onClick={() => onSelectPrompt(val)}
-                        onMouseEnter={() => handleMouseEnter(val)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div className="w-1/1">
-                            <img className="rounded-xl hover:shadow-2xl"
-                                src={val.image} width={100} height={100}
-                                alt={val.title} />
-                            <p className="mt-1 flex justify-center">{val.title}</p></div>
-                    </div>
-                </div>
-            )}
-
-        </div>
-        
-        <div className="mt-1 flex justify-center">
-        <form>            
-            <div className="mb-6">
-            <label htmlFor="prompt" className="block mb-2 text-sm font-medium">プロンプト</label>
-            <textarea
-                value={prompt}
-                placeholder={placeholder}
-                onChange={(e) => setPrompt(e.target.value)}
-                onBlur={handleBlur}
-                id="prompt" html-rows="4"
-                className={color}></textarea>
-            {textError &&<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
-            </div>
-        </form>
-        </div>
+        <ShowPrompts />
+        <ShowPrompts />
     </div>
 }

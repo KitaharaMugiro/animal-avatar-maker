@@ -3,25 +3,49 @@ import { CloudinaryImageProps } from "../../utils/types"
 import Uploader from "./Uploader"
 import Image from "next/image"
 import { imageUrl } from "../../utils/imageUrl"
-import PlanSelector from "./PlanSelector"
-import { useState } from "react"
+import PlanSelector from "../form/PlanSelector"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import MailForm from "../form/MailForm"
+import PlanTable from "../plan/PlanTable"
+import MultiPromptSelectors from "./MultiPromptSelectors"
 
 interface Props {
     name: string,
     inputImages: CloudinaryImageProps[]
 }
+
+const PLAN_TABLE = {
+    free: {
+        promptNum: 2
+    },
+    standard: {
+        promptNum: 5
+    },
+    none: {
+        promptNum: 0
+    }
+}
 export default (props: Props) => {
     const router = useRouter()
     const isInputUploaded = props.inputImages.length > 0
     const [plan, setPlan] = useState("none")
-    const readyToCreate = plan !== "none" && isInputUploaded
+    const [email, setEmail] = useState("")
+    const [prompts, setPrompts] = useState([])
+    const isValidEmail = email.match(/.+@.+\..+/) !== null
+    const readyToCreate = plan !== "none" && isInputUploaded && isValidEmail
+    const prompt_use_num = PLAN_TABLE[plan].promptNum
+    useEffect(() => {
+        if (prompt.length < prompt_use_num) {
+            setPrompts([...Array(prompt_use_num)].map(() => ""))
+        }
+    }, [plan])
 
     const onCreate = async () => {
         console.log("confirm")
         if (confirm("アバターを作成しますか？")) {
             //TODO: planやprompt_versionを選択できるようにする
-            await fetch('/api/kick_status', {
+            await fetch('/api/status/start', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,8 +53,11 @@ export default (props: Props) => {
                 body: JSON.stringify({
                     user_id: props.name,
                     plan: plan,
-                    prompt_version: 4,
-                    class_name: "dog"
+                    email: email,
+                    class_name: "dog",
+                    prompts: prompts.map((prompt) => {
+                        return prompt.replace("MY_PET", "{identifier}").slice(0, prompt_use_num)
+                    })
                 })
             })
             //リロード
@@ -41,21 +68,23 @@ export default (props: Props) => {
     const uploadOrPreviewRender = () => {
         //TODO: isInputUploadedがtrueならば、アップロードした画像を表示する
         if (isInputUploaded) {
-            return <div className="mt-2 grid grid-cols-5 gap-y-2 gap-x-4 sm:grid-cols-8">
-                {props.inputImages.map((file) => (
-                    <div key={file.public_id} className="relative group">
-                        <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden">
-                            <img src={imageUrl(file.public_id, file.format, false, false)} className="object-cover" />
+            return <div>
+
+                <h1>アップロードいただいた画像</h1>
+                <div className="mt-2 grid grid-cols-5 gap-y-2 gap-x-4 sm:grid-cols-8">
+                    {props.inputImages.map((file) => (
+                        <div key={file.public_id} className="relative group">
+                            <div className="aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden">
+                                <img src={imageUrl(file.public_id, file.format, false, false)} className="object-cover" />
+                            </div>
                         </div>
-                    </div>
-                ))}
+                    ))}
+                </div>
             </div>
 
         } else {
             return (
                 <>
-
-
                     <div className="mt-4">
                         <p className="text-lg">ペットの写真を10枚ほどアップロードしてください</p>
                         {/* リサイズした画像をアップロードしよう */}
@@ -65,27 +94,57 @@ export default (props: Props) => {
         }
     }
 
-    return <div className="bg-gray-50 p-5">
+    const renderAfterInputImage = () => {
+        return (<div className="mt-10">
+            <h1>必要事項の入力</h1>
 
-        {uploadOrPreviewRender()}
+            <div className="mt-4 max-w-xl">
+                <MailForm email={email} setEmail={setEmail} />
+            </div>
 
-        {isInputUploaded &&
-            <div className="mt-4">
-                <p className="text-lg">プランを選ぶ</p>
+            <div className="mt-4 max-w-xl">
                 <PlanSelector plan={plan} setPlan={setPlan} />
+                <PlanTable />
             </div>
-        }
-        {readyToCreate &&
-            <div className="flex flex-col items-center">
-                <button
-                    onClick={onCreate}
-                    className="mx-auto my-10 bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-16 rounded-full">
-                    アバターを作成する
-                </button>
-            </div>
-        }
 
+            <div className="mt-4">
+                <MultiPromptSelectors
+                    prompts={prompts}
+                    setPrompts={setPrompts}
+                    use_num={prompt_use_num} />
+            </div>
+
+            {plan === "standard" && <div>
+                <p className="text-sm">※ お支払いはクレジットカードにてお受け付けしております。後ほど支払いリンクをメールにてお送りさせていただきます。</p>
+            </div>}
+
+            {readyToCreate ?
+                <div className="flex flex-col items-center">
+                    <button
+                        onClick={onCreate}
+                        className="mx-auto my-10 bg-red-500 hover:bg-red-700 text-white font-bold py-6 px-16 rounded-full">
+                        アバターを作成する
+                    </button>
+                </div> :
+                <div className="flex flex-col items-center">
+                    <button
+                        className="mx-auto my-10 bg-gray-500 text-white font-bold py-6 px-16 rounded-full">
+                        アバターを作成する
+                    </button>
+                </div>
+            }
+        </div>)
+    }
+
+
+
+    return <div className="bg-gray-50 p-5">
+        {uploadOrPreviewRender()}
+        {renderAfterInputImage()}
     </div>
 
-}
 
+
+
+
+}

@@ -1,6 +1,7 @@
 import cloudinary from "./cloudinary"
 import { CloudinaryImageProps } from "./types"
 
+//サーバからしか呼べません
 export const getImages = async (name: string, date: string) => {
     const results = await cloudinary.v2.search
         .expression(`folder:output/${name}/${date}/*`)
@@ -69,16 +70,14 @@ export const getAllImages = async (name: string) => {
         i++
     }
 
-    // mosaic = falseの画像を先に持ってくる
-    reducedResults.sort((a, b) => {
-        if (a.mosaic && !b.mosaic) {
-            return 1
-        } else if (!a.mosaic && b.mosaic) {
-            return -1
-        } else {
-            return 0
-        }
-    })
+    // mosaic = false と sample = falseの画像を先に持ってくる
+    reducedResults.sort((a, b) =>
+        (a.mosaic && !b.mosaic) ? 1 :
+            (!a.mosaic && b.mosaic) ? -1 :
+                (a.sample && !b.sample) ? 1 :
+                    (!a.sample && b.sample) ? -1 :
+                        0
+    );
 
     // id振り直し
     i = 0

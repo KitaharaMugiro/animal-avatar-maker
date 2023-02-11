@@ -14,7 +14,7 @@ interface Props {
 }
 
 export default (props: Props) => {
-    const { images: _images } = props
+    const { images: allImages } = props
     const router = useRouter()
     const { photoId, name } = router.query
     const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
@@ -24,16 +24,16 @@ export default (props: Props) => {
 
     useEffect(() => {
         // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
-        if (lastViewedPhoto && !photoId) {
+        if (lastViewedPhoto && lastViewedPhotoRef.current && !photoId) {
             lastViewedPhotoRef.current.scrollIntoView({ block: 'center' })
             setLastViewedPhoto(null)
         }
     }, [photoId, lastViewedPhoto, setLastViewedPhoto])
 
 
-    let images = _images
+    let images = allImages
     if (!showMore) {
-        images = _images.filter(i => i.mosaic !== true)
+        images = allImages.filter(i => i.mosaic !== true && i.sample !== true)
     }
 
     return <main className="mx-auto max-w-[1960px] p-4">
@@ -41,7 +41,7 @@ export default (props: Props) => {
         {/* モーダル */}
         {photoId && (
             <Modal
-                images={images}
+                images={allImages}
                 onClose={() => {
                     setLastViewedPhoto(photoId)
                 }}

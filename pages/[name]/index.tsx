@@ -3,8 +3,10 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import NoAvatar from '../../components/avatar/NoAvatar'
+import MyHeader from '../../components/common/MyHeader'
 import PhotoGallary from '../../components/gallary/PhotoGallary'
 import { getAllImages, getInputImages } from '../../utils/getImages'
+import { imageUrl } from '../../utils/imageUrl'
 import { CloudinaryImageProps } from '../../utils/types'
 import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto'
 
@@ -19,19 +21,24 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
     }
 
     const title = `${name}さんのギャラリー | アニマルアバターメーカー`
+    let pickedImage = undefined
+    if (images.length > 0) {
+        pickedImage = imageUrl(images[0].public_id, images[0].format, false, false)
+    }
     return (
         <>
             <Head>
                 <title>{title}</title>
-                <meta
+                {pickedImage && <><meta
                     property="og:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
+                    content={pickedImage}
                 />
-                <meta
-                    name="twitter:image"
-                    content="https://asset.cloudinary.com/ddeqwb08j/3dee328119b5e06a5f76503c0c585214"
-                />
+                    <meta
+                        name="twitter:image"
+                        content={pickedImage}
+                    /></>}
             </Head>
+            <MyHeader />
             <PhotoGallary images={images} inputImages={inputImages} />
             <button
                 onClick={onClickKifu}

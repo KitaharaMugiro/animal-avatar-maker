@@ -4,6 +4,7 @@ import imageCompression from 'browser-image-compression';
 import Head from 'next/head'
 import Image from 'next/image'
 import { imageUrlFromPath, thumbailImageUrl } from "../../utils/imageUrl";
+import ShowPrompts from "../../components/avatar/ShowPrompts";
 // http://localhost:3000/dev/prompt_select にアクセスする
 // STEP1: APIからプロンプトの例を取得する (実装済み)
 // /api/prompts/exampleから取得
@@ -23,81 +24,8 @@ type PromptExample = {
 }
 
 export default () => {
-    const [examples, setExamples] = useState<PromptExample[]>([])
-
-    useEffect(() => {
-        // APIを呼び出す
-        fetch("/api/prompts/example").then((res) => (res.json())).then((data) => {
-            console.log({ data })
-            const prompts: PromptExample[] = data.prompts.map(val => {
-                return {
-                    id: val.id,
-                    title: val.title,
-                    image: imageUrlFromPath(val.example_image),
-                    prompt: val.prompt.replace("{identifier}", "MY_PET")
-                }
-            })
-            setExamples(prompts)
-        })
-    }, [])
-
-    const [prompt, setPrompt] = useState("");
-    const [placeholder, setPlaceholder] = useState("ここにプロンプトが表示されます");
-    const onSelectPrompt = (e: PromptExample) => {
-        setPrompt(() => e.prompt)
-    }
-
-    const handleMouseEnter = (e: PromptExample) => {
-        setPlaceholder(() => e.prompt)
-    }
-
-    const handleMouseLeave = () => {
-        setPlaceholder(() => "ここにプロンプトが表示されます")
-    }
-
-    const onSubmit = () => {
-        const data = {
-            user_id: "test",
-            class_name: "dog",
-            prompts: [prompt]
-        }
-        fetch("/api/status/start", {
-            method: "POST",
-            body: JSON.stringify(data)
-        }).then((res) => (res.json())).then((data) => {
-            console.log({ data })
-        })
-    }
-
     return <div >
-        <p className="mt-1 flex justify-center px-6">プロンプトを選ぶ①</p>
-        <div className="mt-3 flex flex-wrap justify-center bg-slate-100 p-3">
-            {examples.map((val) =>
-                <div className="m-1" key={val.prompt}>
-                    <div className="mx-3 cursor-pointer"
-                        onClick={() => onSelectPrompt(val)}
-                        onMouseEnter={() => handleMouseEnter(val)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        <div className="w-1/1">
-                            <img className="rounded-xl hover:shadow-2xl"
-                                src={val.image} width={100} height={100}
-                                alt={val.title} />
-                            <p className="mt-1 flex justify-center">{val.title}</p></div>
-                    </div>
-                </div>
-            )}
-
-        </div>
-        <div className="mt-1 flex justify-center">
-
-
-            <textarea
-                value={prompt}
-                placeholder={placeholder}
-                onChange={(e) => setPrompt(e.target.value)}
-                id="message" html-rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></textarea>
-
-        </div>
+        <ShowPrompts />
+        <ShowPrompts />
     </div>
 }

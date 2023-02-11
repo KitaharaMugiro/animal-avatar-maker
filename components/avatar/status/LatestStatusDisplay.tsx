@@ -1,7 +1,9 @@
+import { useRouter } from "next/router"
 import { StatusData } from "../../../pages/[name]/status"
+import { getYYYYMMDD } from "../../../utils/dateUtil"
+import CreateNewAvatarCard from "./card/CreateNewAvatarCard"
+import GeneratedStatusCard from "./card/GeneratedStatusCard"
 import WaitingStatusCard from "./card/WaitingStatusCard"
-import GeneratedStatus from "./GeneratedStatus"
-import GeneratingStatus from "./GeneratingStatus"
 import NoStatus from "./NoStatus"
 
 interface Props {
@@ -11,27 +13,50 @@ interface Props {
 export default (props: Props) => {
     const { statusData } = props
     const status = statusData?.status?.status || ""
+    const router = useRouter()
 
     const renderByStatus = () => {
+        const { name } = router.query
+        const createdAt = new Date(statusData?.status?.created_at)
+        //YYYYMMDDで表示する
+        const dateText = getYYYYMMDD(createdAt)
         if (status === "waiting" || status === "preparing") {
-            //TODO: ステータスが待機中であればステータスを表示する
-            return <GeneratingStatus />
+            return <WaitingStatusCard
+                date={createdAt.toLocaleString()}
+                rank={statusData.your_number}
+                waiting={statusData.waiting_number}
+                plan={statusData.status.plan}
+                isGenerating={statusData.status.status === "generating"}
+                isWaiting={statusData.status.status === "waiting"}
+            />
         } else if (status === "generating") {
-            //TODO: 一部作られつつあるのでギャラリーに遷移するリンクを提示する
-            return <GeneratingStatus />
+            return <WaitingStatusCard
+                date={createdAt.toLocaleString()}
+                rank={statusData.your_number}
+                waiting={statusData.waiting_number}
+                plan={statusData.status.plan}
+                isGenerating={statusData.status.status === "generating"}
+                isWaiting={statusData.status.status === "waiting"}
+            />
         } else if (status === "generated" || status === "complete") {
             //TODO: ステータスが完了であればギャラリーに遷移するリンクと、追加で作成する選択肢を提示する
-            return <GeneratedStatus />
+            return <>
+                <CreateNewAvatarCard name={name as string} />
+                <GeneratedStatusCard
+                    date={createdAt.toLocaleString()}
+                    dateText={dateText}
+                    name={name as string}
+                    plan={statusData.status.plan}
+                />
+            </>
         } else {
-            //TODO: ステータスがない場合はアバター作成画面を表示
-            return <NoStatus />
+            return <CreateNewAvatarCard name={name as string} />
         }
     }
 
     return (
-        <>
-            {/* <WaitingStatusCard /> */}
+        <div className="m-5 ml-8 flex">
             {renderByStatus()}
-        </>
+        </div>
     )
 }

@@ -3,9 +3,11 @@ import { CloudinaryImageProps } from "../../utils/types"
 import Uploader from "./Uploader"
 import Image from "next/image"
 import { imageUrl } from "../../utils/imageUrl"
-import PlanSelector from "./PlanSelector"
+import PlanSelector from "../form/PlanSelector"
 import { useState } from "react"
 import { useRouter } from "next/router"
+import MailForm from "../form/MailForm"
+import PlanTable from "../plan/PlanTable"
 
 interface Props {
     name: string,
@@ -15,13 +17,15 @@ export default (props: Props) => {
     const router = useRouter()
     const isInputUploaded = props.inputImages.length > 0
     const [plan, setPlan] = useState("none")
-    const readyToCreate = plan !== "none" && isInputUploaded
+    const [email, setEmail] = useState("")
+    const isValidEmail = email.match(/.+@.+\..+/) !== null
+    const readyToCreate = plan !== "none" && isInputUploaded && isValidEmail
 
     const onCreate = async () => {
         console.log("confirm")
         if (confirm("アバターを作成しますか？")) {
             //TODO: planやprompt_versionを選択できるようにする
-            await fetch('/api/kick_status', {
+            await fetch('/api/status/start', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,8 +33,15 @@ export default (props: Props) => {
                 body: JSON.stringify({
                     user_id: props.name,
                     plan: plan,
-                    prompt_version: 4,
-                    class_name: "dog"
+                    email: email,
+                    class_name: "dog",
+                    prompts: [
+                        "{identifier}, painting by Leonid Afremov",
+                        "watercolor {identifier} by John William Waterhouse",
+                        "oil painting of {identifier} in style of van gogh",
+                        "portrait of {identifier}, vibrant dynamic portrait by makoto shinkai",
+                        "Sketch of ({identifier}) by glen keane"
+                    ]
                 })
             })
             //リロード
@@ -71,10 +82,18 @@ export default (props: Props) => {
 
         {isInputUploaded &&
             <div className="mt-4">
-                <p className="text-lg">プランを選ぶ</p>
                 <PlanSelector plan={plan} setPlan={setPlan} />
+                <PlanTable />
             </div>
         }
+        {isInputUploaded &&
+            <div className="mt-4">
+                <MailForm email={email} setEmail={setEmail} />
+            </div>
+        }
+        {plan === "standard" && <div>
+            <p className="text-sm">※ お支払いはクレジットカードにてお受け付けしております。後ほど支払いリンクをメールにてお送りさせていただきます。</p>
+        </div>}
         {readyToCreate &&
             <div className="flex flex-col items-center">
                 <button

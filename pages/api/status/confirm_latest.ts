@@ -27,9 +27,15 @@ export default async (req, res) => {
         res.status(200).json({
             status: null
         })
+        return
     }
     const statusData = hasuraResponse.wait_list[0]
-
+    if (!statusData) {
+        res.status(200).json({
+            status: null
+        })
+        return
+    }
     //もしwaitingであれば、何番目なのかも返す
     if (statusData.status === "waiting") {
         const query = gql`

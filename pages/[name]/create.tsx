@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import GenerateStatus from "../../components/avatar/status/GeneratingStatus";
 import NoAvatar from "../../components/avatar/NoAvatar";
 import { getInputImages } from "../../utils/getImages";
 import { CloudinaryImageProps } from "../../utils/types";
@@ -14,13 +13,9 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const { name } = router.query
 
     useEffect(() => {
-        //TODO: latestのステータスを取得するように変更する
-        fetch('/api/get_status?user_id=' + name).then(res => res.json()).then(data => {
-            if (data.avatar_generate_status && data.avatar_generate_status.length > 0) {
-                const status = data.avatar_generate_status[0].status
-                if (status != "generated" && status != "complete") {
-                    router.push("/" + name + "/status")
-                }
+        fetch("/api/status/confirm_latest?user_id=" + name).then(res => res.json()).then(data => {
+            if (data.status === "generated" || data.status === "complete") {
+                router.push("/" + name + "/status")
             }
         })
     }, [name])

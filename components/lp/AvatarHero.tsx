@@ -5,7 +5,7 @@ const useStyles = createStyles((theme) => ({
     hero: {
         position: 'relative',
         backgroundImage:
-            'url(https://res.cloudinary.com/ddeqwb08j/image/upload/v1674401923/reac_uoafxf.jpg)',
+            'url(https://res.cloudinary.com/ddeqwb08j/image/upload/v1673347148/ogp_it9trc.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
     },
@@ -61,7 +61,7 @@ const useStyles = createStyles((theme) => ({
     },
 }));
 
-export function Hero() {
+export function AvatarHero() {
     const { classes } = useStyles();
 
     return (
@@ -72,9 +72,9 @@ export function Hero() {
                 zIndex={0}
             />
             <Container className={classes.container}>
-                <Text className={classes.title}>うちの子イラスト定期便</Text>
+                <Text className={classes.title}>誰でもうちの子イラストレーター</Text>
                 <Text className={classes.description} size="xl" mt="xl">
-                    毎月あなたのポストに、あなたの大切なペットのオーダーメイドなイラストが届きます。
+                    ペットの写真を10枚程度アップロードをするだけで、誰でも最高クオリティのイラストを作成できます！
                 </Text>
 
             </Container>

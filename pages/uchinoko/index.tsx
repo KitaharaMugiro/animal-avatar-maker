@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import MyFooter from '../../components/common/MyFooter'
-import { Hero } from '../../components/uchinoko/Hero'
+import { UchinokoHero } from '../../components/uchinoko/UchinokoHero'
 import UchinokoQA from '../../components/uchinoko/UchinokoQA'
 
 const Home: NextPage = () => {
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         />
       </Head>
 
-      <Hero />
+      <UchinokoHero />
       <main className="mx-auto max-w-[1960px] p-4">
         <div className="flex flex-col items-center">
           <Image className="mx-auto my-4" src="/uchinoko/1.png" alt="うちの子" width={500} height={500} unoptimized />

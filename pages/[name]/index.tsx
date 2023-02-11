@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect, useRef, useState } from 'react'
 import NoAvatar from '../../components/avatar/NoAvatar'
+import MyHeader from '../../components/common/MyHeader'
 import PhotoGallary from '../../components/gallary/PhotoGallary'
 import { getAllImages, getInputImages } from '../../utils/getImages'
 import { imageUrl } from '../../utils/imageUrl'
@@ -37,6 +38,7 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
                         content={pickedImage}
                     /></>}
             </Head>
+            <MyHeader />
             <PhotoGallary images={images} inputImages={inputImages} />
             <button
                 onClick={onClickKifu}

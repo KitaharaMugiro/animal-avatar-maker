@@ -12,7 +12,6 @@ export default (props: Props) => {
     const prompts = _prompts.slice(0, props.use_num)
     return <div >
         {prompts.map((prompt, index) => {
-            console.log({ index })
             return <div key={index} className="mb-10">
                 <PromptSelector
                     index={index + 1}

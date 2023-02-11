@@ -14,7 +14,9 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
 
     useEffect(() => {
         fetch("/api/status/confirm_latest?user_id=" + name).then(res => res.json()).then(data => {
-            if (data.status === "generated" || data.status === "complete") {
+            //まだ完了でないならステータスページに飛ばす
+
+            if (data.status && data.status !== "generated" && data.status !== "complete") {
                 router.push("/" + name + "/status")
             }
         })
@@ -38,11 +40,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     //URLからパラメータを取得 
     const { name } = context.params
     const inputResults = await getInputImages(name as string)
-
-    //すでにwaitingのステータスがあったらステータス画面にリダイレクト
-
-
-
     return {
         props: {
             inputImages: inputResults,

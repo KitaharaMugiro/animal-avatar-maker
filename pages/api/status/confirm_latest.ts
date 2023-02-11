@@ -1,12 +1,7 @@
 import { request, gql } from 'graphql-request'
 import { hasuraRequest } from "../../../utils/hasura";
 
-
-export default async (req, res) => {
-    const { user_id } = req.query;
-
-    //現在の最新のステータスを取得する
-
+export const getUserLatestStatus = async (user_id) => {
     const query = gql`
         query ($user_id: String) {
             wait_list(where: {user_id: {_eq: $user_id}}, order_by: {created_at: desc}, limit: 1) {
@@ -24,18 +19,27 @@ export default async (req, res) => {
     }
     const hasuraResponse = await hasuraRequest(query, variables)
     if (hasuraResponse.wait_list.length === 0) {
-        res.status(200).json({
-            status: null
-        })
-        return
+        return null
     }
     const statusData = hasuraResponse.wait_list[0]
+    if (!statusData) {
+        return null
+    }
+    return statusData
+}
+
+export default async (req, res) => {
+    const { user_id } = req.query;
+
+    //現在の最新のステータスを取得する
+    const statusData = await getUserLatestStatus(user_id)
     if (!statusData) {
         res.status(200).json({
             status: null
         })
         return
     }
+
     //もしwaitingであれば、何番目なのかも返す
     if (statusData.status === "waiting") {
         const query = gql`

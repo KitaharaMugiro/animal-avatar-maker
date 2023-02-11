@@ -14,7 +14,7 @@ const Home: NextPage = () => {
   const onSubmit = (e: any) => {
     e.preventDefault()
     if (id === '') return
-    router.push(`/${id}`)
+    router.push(`/${id}/status`)
   }
 
   return (

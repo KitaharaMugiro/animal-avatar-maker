@@ -1,12 +1,20 @@
 import { request, gql } from 'graphql-request'
 import { discord_notification } from '../../../utils/discord_notification';
 import { hasuraRequest } from "../../../utils/hasura";
+import { getUserLatestStatus } from './confirm_latest';
 
 
 export default async (req, res) => {
     const { user_id, class_name, prompts, plan, email } = req.body;
 
-    //TODO:すでにwaitリストに入っていたらエラーが出るようにしたい
+    const statusData = await getUserLatestStatus(user_id)
+    if (statusData && statusData.status === "waiting") {
+        res.status(200).json({
+            status: "already_waiting"
+        })
+        return
+    }
+
 
     const query = gql`
         mutation (
@@ -48,7 +56,6 @@ export default async (req, res) => {
     }
 
     const hasuraResponse = await hasuraRequest(query, variables)
-    console.log(hasuraResponse)
     if (process.env.NODE_ENV === 'production') {
         await discord_notification(`Waitリストにリクエストが追加されました。(user_id: ${user_id}, class_name: ${class_name})`)
     }

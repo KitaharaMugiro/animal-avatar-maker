@@ -105,21 +105,27 @@ export default function ShowPrompts() {
                     </div>
                 )}
             </div>
+        </div>
+        }
+    const ShowTextarea = () => {
+        return <div>
             <div className="mt-1 flex justify-center">
-            <textarea
+                <textarea
                     value={prompt}
                     placeholder={placeholder}
                     onBlur={(e) => hasValue(e.target.value)}
                     onChange={(e) => setPrompt(e.target.value)}
                     id="prompt" html-rows="4"
-                    className={color}></textarea>
-            
+                    className={color}>
+                </textarea>
             </div>
             {textError &&<p className="mt-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
         </div>
+        }
         
-    }
+
     return <div >
         <ShowPrompt />
+        <ShowTextarea />
     </div>
 }

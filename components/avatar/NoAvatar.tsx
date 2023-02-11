@@ -101,6 +101,9 @@ export default (props: Props) => {
     }
 
     const renderAfterInputImage = () => {
+        if (!isInputUploaded) {
+            return <div />
+        }
         return (<div className="mt-10">
 
             <div className="mt-4 max-w-xl">

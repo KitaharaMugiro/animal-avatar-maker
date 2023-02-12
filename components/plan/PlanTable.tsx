@@ -26,7 +26,7 @@ export default () => {
     return <div
         className="relative overflow-scroll shadow-sm mt-5"
         style={{ whiteSpace: "nowrap" }}>
-        <table className="w-full table-fixed text-sm text-left text-gray-500">
+        <table className="table-fixed text-sm text-left text-gray-500">
             <thead className="text-xs text-gray-700 uppercase bg-gray-200 ">
                 <tr>
                     <th scope="col" className="px-6 py-3 w-38">

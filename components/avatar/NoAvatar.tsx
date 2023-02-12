@@ -1,31 +1,19 @@
-import Head from "next/head"
-import { CloudinaryImageProps } from "../../utils/types"
-import Uploader from "./Uploader"
-import Image from "next/image"
-import { imageUrl } from "../../utils/imageUrl"
-import PlanSelector from "../form/PlanSelector"
-import { useEffect, useState } from "react"
 import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
+import { PlanConst } from "../../const/PlanConst"
+import { imageUrl } from "../../utils/imageUrl"
+import { CloudinaryImageProps } from "../../utils/types"
 import MailForm from "../form/MailForm"
+import PlanSelector from "../form/PlanSelector"
 import PlanTable from "../plan/PlanTable"
 import MultiPromptSelectors from "./MultiPromptSelectors"
+import Uploader from "./Uploader"
 
 interface Props {
     name: string,
     inputImages: CloudinaryImageProps[]
 }
 
-const PLAN_TABLE = {
-    free: {
-        promptNum: 2
-    },
-    standard: {
-        promptNum: 5
-    },
-    none: {
-        promptNum: 0
-    }
-}
 export default (props: Props) => {
     const router = useRouter()
     const isInputUploaded = props.inputImages.length > 0
@@ -34,7 +22,8 @@ export default (props: Props) => {
     const [prompts, setPrompts] = useState([])
     const isValidEmail = email.match(/.+@.+\..+/) !== null
     const readyToCreate = plan !== "none" && isInputUploaded && isValidEmail
-    const prompt_use_num = PLAN_TABLE[plan].promptNum
+    const prompt_use_num = PlanConst[plan].freeStyePromptNum
+
     useEffect(() => {
         if (prompts.length < prompt_use_num) {
             //元あったプロンプトは残したい
@@ -93,7 +82,6 @@ export default (props: Props) => {
                 <>
                     <div className="mt-4">
                         <p className="text-lg">ペットの写真を10枚ほどアップロードしてください</p>
-                        {/* リサイズした画像をアップロードしよう */}
                         <Uploader name={props.name} />
                     </div></>)
 
@@ -106,11 +94,11 @@ export default (props: Props) => {
         }
         return (<div className="mt-10">
 
-            <div className="mt-4 max-w-xl">
+            <div className="mt-4 max-w-xl mx-auto">
                 <MailForm email={email} setEmail={setEmail} />
             </div>
 
-            <div className="mt-4 max-w-xl">
+            <div className="mt-4 max-w-xl mx-auto">
                 <PlanSelector plan={plan} setPlan={setPlan} />
                 <PlanTable />
             </div>
@@ -122,7 +110,7 @@ export default (props: Props) => {
                     use_num={prompt_use_num} />
             </div>
 
-            {plan === "standard" && <div>
+            {PlanConst[plan].price > 0 && <div className="mx-auto">
                 <p className="text-sm">※ お支払いはクレジットカードにてお受け付けしております。後ほど支払いリンクをメールにてお送りさせていただきます。</p>
             </div>}
 

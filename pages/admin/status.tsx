@@ -32,6 +32,14 @@ export default () => {
                 ))}
             </tbody>
         </StyledTable>
+
+        <a
+            href="https://colab.research.google.com/drive/1HlFogmJlrv6LOq1SUvUf78SAPYxoPAKt#scrollTo=UoucDdEJ4Q5K&forceEdit=true&sandboxMode=true">
+            <button
+                className="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                待っている人がいます。アバターを作りましょう。
+            </button>
+        </a>
     </div>
 }
 

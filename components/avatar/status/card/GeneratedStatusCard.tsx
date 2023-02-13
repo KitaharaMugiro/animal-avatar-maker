@@ -25,7 +25,7 @@ export default (props: Props) => {
 
     }
 
-    return <div className="m-3 w-full max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
+    return <div className="m-3 max-w-xs overflow-hidden bg-white rounded-lg shadow-lg">
         <Image unoptimized className="object-cover w-full h-56" src={image} width={500} height={500} alt="avatar" />
 
         <div className="py-5 text-center">

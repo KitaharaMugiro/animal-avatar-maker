@@ -13,7 +13,6 @@ const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[
     const { name } = router.query
 
     const onClickKifu = () => {
-        //https://buy.stripe.com/6oE7vY8i80x81TG8wy
         window.open('https://buy.stripe.com/6oE7vY8i80x81TG8wy', '_blank')
     }
 

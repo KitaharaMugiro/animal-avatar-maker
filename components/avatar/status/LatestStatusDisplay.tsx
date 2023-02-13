@@ -20,15 +20,7 @@ export default (props: Props) => {
         const createdAt = new Date(statusData?.status?.created_at)
         //YYYYMMDDで表示する
         const dateText = getYYYYMMDD(createdAt)
-        if (status === "waiting" || status === "preparing" || status === "learning") {
-            return <WaitingStatusCard
-                date={createdAt.toLocaleString()}
-                rank={statusData.your_number}
-                waiting={statusData.waiting_number}
-                plan={statusData.status.plan}
-                status={statusData.status.status}
-            />
-        } else if (status === "generating") {
+        if (status === "waiting" || status === "preparing" || status === "learning" || status === "generating") {
             return <WaitingStatusCard
                 date={createdAt.toLocaleString()}
                 rank={statusData.your_number}
@@ -39,7 +31,7 @@ export default (props: Props) => {
         } else if (status === "generated" || status === "complete") {
             //TODO: ステータスが完了であればギャラリーに遷移するリンクと、追加で作成する選択肢を提示する
             return <>
-                <CreateNewAvatarCard name={name as string} />
+                {/* <CreateNewAvatarCard name={name as string} /> */}
                 <GeneratedStatusCard
                     date={createdAt.toLocaleString()}
                     dateText={dateText}
@@ -53,7 +45,7 @@ export default (props: Props) => {
     }
 
     return (
-        <div className="m-5 ml-8 flex">
+        <div className="m-5 ml-8 flex overflow-scroll">
             {renderByStatus()}
         </div>
     )

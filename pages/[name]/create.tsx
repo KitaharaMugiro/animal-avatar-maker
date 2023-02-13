@@ -13,6 +13,7 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const { name } = router.query
 
     useEffect(() => {
+        if (!name) return
         fetch("/api/status/confirm_latest?user_id=" + name).then(res => res.json()).then(data => {
             //まだ完了でないならステータスページに飛ばす
 

@@ -22,7 +22,7 @@ const StatusPage = () => {
     const { name } = router.query
     const [status, setStatus] = useState<StatusData>(null)
     useEffect(() => {
-        //TODO: latestのステータスを取得するように変更する
+        if (name === undefined) return
         fetch('/api/status/confirm_latest?user_id=' + name).then(res => res.json()).then(_data => {
             const data = _data as StatusData
             setStatus(data)

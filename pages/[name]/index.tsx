@@ -1,14 +1,11 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
-import NoAvatar from '../../components/avatar/NoAvatar'
 import MyHeader from '../../components/common/MyHeader'
 import PhotoGallary from '../../components/gallary/PhotoGallary'
 import { getAllImages, getInputImages } from '../../utils/getImages'
 import { imageUrl } from '../../utils/imageUrl'
 import { CloudinaryImageProps } from '../../utils/types'
-import { useLastViewedPhoto } from '../../utils/useLastViewedPhoto'
 
 
 const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[], inputImages: CloudinaryImageProps[] }) => {

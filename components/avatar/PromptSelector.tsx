@@ -64,8 +64,21 @@ export default function PromptSelector(props: Props) {
 
     }
 
-    const ShowExamplePrompt = () => {
-        return <div className="mt-1 flex flex-wrap justify-center bg-slate-100 p-3">
+    return <div >
+        <p className="mb-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
+
+        <div className="mb-1 flex justify-center">
+            <textarea
+                value={prompt}
+                placeholder={placeholder}
+                onBlur={(e) => onSetPrompt(e.target.value)}
+                onChange={(e) => setPrompt(e.target.value)}
+                id="prompt" html-rows="4"
+                className={color}>
+            </textarea>
+        </div>
+        {textError && <p className="mb-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
+        <div className="mt-1 flex flex-wrap justify-center bg-slate-100 p-3">
             {examples.map((val) =>
                 <div className="m-1" key={val.prompt}>
                     <div className="mx-3 cursor-pointer"
@@ -82,25 +95,6 @@ export default function PromptSelector(props: Props) {
                 </div>
             )}
         </div>
-
-    }
-
-
-    return <div >
-        <p className="mb-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
-
-        <div className="mb-1 flex justify-center">
-            <textarea
-                value={prompt}
-                placeholder={placeholder}
-                onBlur={(e) => onSetPrompt(e.target.value)}
-                onChange={(e) => setPrompt(e.target.value)}
-                id="prompt" html-rows="4"
-                className={color}>
-            </textarea>
-        </div>
-        {textError && <p className="mb-2 text-sm text-red-600 dark:text-red-500"><span className="font-medium">{textError}</span></p>}
-        <ShowExamplePrompt />
 
     </div>
 }

@@ -1,46 +1,31 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useEffect, useRef, useState } from 'react'
-import Modal from '../../../components/Modal'
 import { getImages } from '../../../utils/getImages'
+import MyHeader from '../../../components/common/MyHeader'
+import PhotoGallary from '../../../components/gallary/PhotoGallary'
 import { imageUrl } from '../../../utils/imageUrl'
 import { CloudinaryImageProps } from '../../../utils/types'
-import { useLastViewedPhoto } from '../../../utils/useLastViewedPhoto'
 
 
-const Home: NextPage = ({ images: _images }: { images: CloudinaryImageProps[] }) => {
+const Home: NextPage = ({ images, inputImages }: { images: CloudinaryImageProps[], inputImages: CloudinaryImageProps[] }) => {
     const router = useRouter()
-    const { photoId, name, date } = router.query
-    const [lastViewedPhoto, setLastViewedPhoto] = useLastViewedPhoto()
-    const [showMore, setShowMore] = useState(false)
-    const lastViewedPhotoRef = useRef<HTMLAnchorElement>(null)
+    const { name } = router.query
 
-
-    useEffect(() => {
-        // This effect keeps track of the last viewed photo in the modal to keep the index page in sync when the user navigates back
-        if (lastViewedPhoto && !photoId) {
-            lastViewedPhotoRef.current.scrollIntoView({ block: 'center' })
-            setLastViewedPhoto(null)
-        }
-    }, [photoId, lastViewedPhoto, setLastViewedPhoto])
-
-
-    let images = _images
-    if (!showMore) {
-        images = _images.filter(i => i.mosaic !== true)
+    const onClickKifu = () => {
+        //https://buy.stripe.com/6oE7vY8i80x81TG8wy
+        window.open('https://buy.stripe.com/6oE7vY8i80x81TG8wy', '_blank')
     }
+
+    const title = `${name}さんのギャラリー | アニマルアバターメーカー`
     let pickedImage = undefined
     if (images.length > 0) {
         pickedImage = imageUrl(images[0].public_id, images[0].format, false, false)
     }
-
     return (
         <>
             <Head>
-                <title>{name}さんのアバター {date} | アニマルアバターメーカー</title>
+                <title>{title}</title>
                 {pickedImage && <><meta
                     property="og:image"
                     content={pickedImage}
@@ -50,61 +35,17 @@ const Home: NextPage = ({ images: _images }: { images: CloudinaryImageProps[] })
                         content={pickedImage}
                     /></>}
             </Head>
-            <main className="mx-auto max-w-[1960px] p-4">
-                {/* ヘッダー */}
-
-                {/* モーダル */}
-                {photoId && (
-                    <Modal
-                        images={images}
-                        onClose={() => {
-                            setLastViewedPhoto(photoId)
-                        }}
-                    />
-                )}
-                <div className="columns-1 gap-4 sm:columns-2 xl:columns-3 2xl:columns-4">
-
-                    {images.map(({ id, public_id, format, mosaic, sample }) => (
-                        <Link
-                            key={id}
-                            href={{
-                                pathname: `/${name}/${date}`,
-                                query: { photoId: id },
-                            }}
-                            ref={id === Number(lastViewedPhoto) ? lastViewedPhotoRef : null}
-                            shallow={true}
-                            className="after:content group relative mb-5 block w-full cursor-zoom-in after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:shadow-highlight"
-                        >
-                            <Image
-                                alt="avatar"
-                                className="transform rounded-lg brightness-90 transition will-change-auto group-hover:brightness-110"
-                                style={{ transform: 'translate3d(0, 0, 0)' }}
-                                src={imageUrl(public_id, format, mosaic, sample)}
-                                width={720}
-                                height={480}
-                                unoptimized
-                                sizes="(max-width: 640px) 100vw,
-                                    (max-width: 1280px) 50vw,
-                                    (max-width: 1536px) 33vw,
-                                    25vw"
-                            />
-                        </Link>
-                    ))}
-
-                    {/* show more button */}
-                    {!showMore && (
-                        <button
-                            className="w-full py-4 text-white bg-gradient-to-r from-[#2193b0] to-[#6dd5ed] rounded-lg shadow-highlight"
-                            onClick={() => setShowMore(true)}
-                        >
-                            <b>もっとみたい</b>
-                        </button>
-                    )}
-
-                </div>
-
-            </main>
-
+            <MyHeader />
+            <PhotoGallary images={images} inputImages={inputImages} />
+            <button
+                onClick={onClickKifu}
+                className="fixed z-90 bottom-10 right-8 text-white px-4 w-auto h-10 bg-red-600 rounded-full hover:bg-red-700 active:shadow-lg mouse shadow transition ease-in duration-200 focus:outline-none">
+                <svg viewBox="0 0 20 20" enable-background="new 0 0 20 20" className="w-6 h-6 inline-block mr-1">
+                    <path fill="#FFFFFF" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0
+                                    c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z"/>
+                </svg>
+                <span>寄付する</span>
+            </button>
         </>
     )
 }
@@ -114,18 +55,7 @@ export default Home
 export const getStaticProps: GetStaticProps = async (context) => {
     //URLからパラメータを取得 
     const { name, date } = context.params
-
-    //過去の遺物なのでリダイレクトさせるさせる
-    //TODO : 不要ならこのファイルごと消す
-    return {
-        redirect: {
-            permanent: false, // 永続的なリダイレクトかどうか
-            destination: '/' + name, // リダイレクト先
-        },
-    }
-
     const reducedResults = await getImages(name as string, date as string)
-
     return {
         props: {
             images: reducedResults,

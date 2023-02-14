@@ -13,5 +13,5 @@ export const thumbailImageUrl = (public_id: string, format: string) => {
 }
 
 export const imageUrlFromPath = (path: string) => {
-    return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_120${path}`
+    return `https://res.cloudinary.com/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload/c_scale,w_312${path}`
 }

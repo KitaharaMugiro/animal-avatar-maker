@@ -111,7 +111,7 @@ export default (props: Props) => {
             </div>
 
             {PlanConst[plan].price > 0 && <div className="mx-auto">
-                <p className="text-sm">※ お支払いはクレジットカードにてお受け付けしております。後ほど支払いリンクをメールにてお送りさせていただきます。</p>
+                <p className="text-sm">※ お支払いはクレジットカードもしくはPayPayにてお受け付けしております。後ほど支払いリンクをメールにてお送りさせていただきます。</p>
             </div>}
 
             {readyToCreate ?

@@ -49,13 +49,13 @@ export default async (req, res) => {
         Source: 'noreply@animal-avatar-maker.yunomy.com',
     };
 
-    ses.sendEmail(params, (err, res) => {
+    ses.sendEmail(params, (err, r) => {
         if (err) {
             console.log(err);
             res.status(500).json(err)
         }
-        console.log(res);
-        res.status(200).json(res)
+        console.log(r);
+        res.status(200).json(r)
     });
 
     //res.status(200).json()

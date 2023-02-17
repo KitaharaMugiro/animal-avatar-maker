@@ -1,15 +1,12 @@
+import AWS from "aws-sdk"
 export default async (req, res) => {
     const { user_id, email } = req.body;
     const nouhinUrl = `https://uchinoko.yunomy.com/${user_id}`
 
-    const AWS = require('aws-sdk');
-    console.log({ nouhinUrl })
-    console.log({ key: process.env.AWS_API_KEY })
-    console.log({ secret: process.env.AWS_SECRET_API_KEY })
     AWS.config.update({
         accessKeyId: process.env.AWS_API_KEY,
-        secretKey: process.env.AWS_SECRET_API_KEY,
-        region: 'ap-northeast-1'
+        secretAccessKey: process.env.AWS_SECRET_API_KEY,
+        region: 'ap-northeast-1',
     });
     const ses = new AWS.SES();
 
@@ -58,5 +55,4 @@ export default async (req, res) => {
         res.status(200).json(r)
     });
 
-    //res.status(200).json()
 };

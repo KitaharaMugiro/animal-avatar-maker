@@ -3,8 +3,9 @@ export default async (req, res) => {
     const nouhinUrl = `https://uchinoko.yunomy.com/${user_id}`
 
     const AWS = require('aws-sdk');
-
-    // 米国東部（バージニア北部） - 西部なら us-west-2
+    console.log({ nouhinUrl })
+    console.log({ key: process.env.AWS_API_KEY })
+    console.log({ secret: process.env.AWS_SECRET_API_KEY })
     AWS.config.update({
         accessKeyId: process.env.AWS_API_KEY,
         secretKey: process.env.AWS_SECRET_API_KEY,
@@ -51,9 +52,11 @@ export default async (req, res) => {
     ses.sendEmail(params, (err, res) => {
         if (err) {
             console.log(err);
+            res.status(500).json(err)
         }
         console.log(res);
+        res.status(200).json(res)
     });
 
-    res.status(200).json()
+    //res.status(200).json()
 };

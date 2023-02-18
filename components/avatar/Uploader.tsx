@@ -2,6 +2,7 @@ import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
 import Image from 'next/image'
+import Loading from '../Loading';
 
 interface Props {
     name: string;

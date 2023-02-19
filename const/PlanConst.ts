@@ -20,7 +20,7 @@ export const PlanConst: PlanConstType = {
         quality: "少し低い",
         waitTime: "あり",
         price: 0,
-        description: "2種類選択 (0円)",
+        description: "フリープラン (0円)",
         freeStyePromptNum: 2
     },
     standard: {
@@ -29,7 +29,7 @@ export const PlanConst: PlanConstType = {
         quality: "高品質",
         waitTime: "優先",
         price: 980,
-        description: "5種類選択 (980円)",
+        description: "スタンダードプラン (980円)",
         freeStyePromptNum: 5
     },
     miniPack: {
@@ -37,8 +37,8 @@ export const PlanConst: PlanConstType = {
         quantity: "30枚",
         quality: "高品質",
         waitTime: "優先",
-        price: 980,
-        description: "ランダム30枚 (980円)",
+        price: 0,
+        description: "ミニパックプラン (0円)",
         freeStyePromptNum: 0
     },
     standardPack: {
@@ -47,7 +47,7 @@ export const PlanConst: PlanConstType = {
         quality: "高品質",
         waitTime: "優先",
         price: 2980,
-        description: "ランダム100枚 (2980円)",
+        description: "スタンダードパックプラン (2980円)",
         freeStyePromptNum: 0
     },
 

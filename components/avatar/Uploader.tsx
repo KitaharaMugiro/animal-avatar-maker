@@ -2,16 +2,17 @@ import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
 import Image from 'next/image'
-import Loading from '../Loading';
+import ShowLoading from "./status/ShowLoading";
+import ReactLoading from "react-loading";
 
 interface Props {
     name: string;
 }
 
 export default (props: Props) => {
-
     const [images, setImages] = useState<FileList>();
-
+    const [ isShowLoading, setIsShowLoading ] = useState(false);
+    const [ bottunDisabele, setBottunDisabele ] = useState(false);
     const uploadToClient: ChangeEventHandler<HTMLInputElement> = (event) => {
         //TODO: サイズチェック
         setImages(event.target.files);
@@ -19,14 +20,21 @@ export default (props: Props) => {
 
     const uploadToServer = async () => {
         if (images && images.length < 10) {
-            alert("10枚以上の画像を選択してください。")
+            Swal.fire("10枚以上の画像を選択してください。")
             return;
         }
         if (images && images.length > 20) {
-            alert("20枚以下の画像を選択してください。")
+            Swal.fire("20枚以下の画像を選択してください。")
             return;
         }
-
+        if (!images) {
+            Swal.fire("画像を選択してください。")
+            return;
+        }
+        
+        
+        setIsShowLoading(true)
+        setBottunDisabele(true)
         let i = 0;
         const promises = []
         for (const image of Array.from(images)) {
@@ -52,12 +60,33 @@ export default (props: Props) => {
 
         //TODO: ロード中みたいにしたい。あとダブルクリックできないようにしたい。
         await Promise.all(promises)
-        alert("アップロードが完了しました。")
+        Swal.fire("アップロードが完了しました。");
+        setIsShowLoading(false)
+        setBottunDisabele(false)
         //リロード
         window.location.reload();
 
     };
+    const Loading = ({}) => {
+        if (isShowLoading) {
+          return (
+            <section className="flex justify-center items-center">
+              <div>
+                <ReactLoading
+                  type="spin"
+                  color="#ebc634"
+                  height="70px"
+                  width="70px"
+                  className="mx-auto"
+                />
+                <p className="text-center mt-3">アップロード中。。。</p>
+              </div>
+            </section>
+          );
+        }
+      };
     return <div>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
         <div>
             <div>
                 <label className="block text-sm font-medium text-gray-700"></label>
@@ -115,9 +144,10 @@ export default (props: Props) => {
                 </div>
             ))}
         </div>}
-
+        <Loading />
         <div className="mt-1 flex justify-center bg-gray-50 px-4 py-3 text-right sm:px-6">
             <button
+                disabled={bottunDisabele}
                 type="submit"
                 onClick={uploadToServer}
                 className="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -125,6 +155,5 @@ export default (props: Props) => {
                 アップロード
             </button>
         </div>
-
     </div >
 }

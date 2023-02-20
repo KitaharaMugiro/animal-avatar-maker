@@ -2,7 +2,6 @@ import { ChangeEventHandler, useState } from "react";
 import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
 import Image from 'next/image'
-import ShowLoading from "./status/ShowLoading";
 import ReactLoading from "react-loading";
 
 interface Props {
@@ -19,16 +18,16 @@ export default (props: Props) => {
     };
 
     const uploadToServer = async () => {
+        if (!images) {
+            Swal.fire("画像を選択してください。")
+            return;
+        }
         if (images && images.length < 10) {
             Swal.fire("10枚以上の画像を選択してください。")
             return;
         }
         if (images && images.length > 20) {
             Swal.fire("20枚以下の画像を選択してください。")
-            return;
-        }
-        if (!images) {
-            Swal.fire("画像を選択してください。")
             return;
         }
         

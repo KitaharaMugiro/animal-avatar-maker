@@ -3,6 +3,7 @@ import { CloudinaryImageProps } from "../../utils/types";
 import imageCompression from 'browser-image-compression';
 import Image from 'next/image'
 import ReactLoading from "react-loading";
+import Swal from 'sweetalert';
 
 interface Props {
     name: string;
@@ -19,15 +20,15 @@ export default (props: Props) => {
 
     const uploadToServer = async () => {
         if (!images) {
-            Swal.fire("画像を選択してください。")
+            Swal("画像を選択してください。")
             return;
         }
         if (images && images.length < 10) {
-            Swal.fire("10枚以上の画像を選択してください。")
+            Swal("10枚以上の画像を選択してください。")
             return;
         }
         if (images && images.length > 20) {
-            Swal.fire("20枚以下の画像を選択してください。")
+            Swal("20枚以下の画像を選択してください。")
             return;
         }
         
@@ -59,7 +60,7 @@ export default (props: Props) => {
 
         //TODO: ロード中みたいにしたい。あとダブルクリックできないようにしたい。
         await Promise.all(promises)
-        Swal.fire("アップロードが完了しました。");
+        Swal("アップロードが完了しました。");
         setIsShowLoading(false)
         setBottunDisabele(false)
         //リロード

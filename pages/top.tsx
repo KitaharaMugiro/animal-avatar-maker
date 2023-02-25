@@ -27,7 +27,7 @@ const Home: NextPage = () => {
       <main className="mx-auto max-w-[1960px] p-4">
         <div className="p-10 border">
           <div className="flex flex-col items-center">
-            <p>ユーザIDを設定する</p>
+            <p>Twitter or Instagram IDを入力</p>
             <form onSubmit={onSubmit} className="w-full max-w-sm">
               <div className="flex items-center border-b border-teal-500 py-2">
                 <input

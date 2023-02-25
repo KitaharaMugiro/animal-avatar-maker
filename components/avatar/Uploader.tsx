@@ -23,8 +23,8 @@ export default (props: Props) => {
             Swal("画像を選択してください。")
             return;
         }
-        if (images && images.length < 10) {
-            Swal("10枚以上の画像を選択してください。")
+        if (images && images.length < 5) {
+            Swal("5枚以上の画像を選択してください。")
             return;
         }
         if (images && images.length > 20) {
@@ -125,7 +125,7 @@ export default (props: Props) => {
                             <p className="text-xs text-gray-500">PNG, JPG, GIF up to 10MB</p>
 
                             <div className="opacity-70 text-base text-gray-600">
-                                <p className="mt-1 flex justify-center">写真は10枚から20枚程お選びください</p>
+                                <p className="mt-1 flex justify-center">写真は5枚～20枚の範囲でお選びください。10枚以上お選びいただくと精度が上がります。</p>
                                 <p className="mt-1 flex justify-center">必ず一匹で写っている写真でお願いします！</p>
                                 <p className="mt-1 flex justify-center">顔がよく写っている写真や服を着ていない写真をお選びいただくと、精度が上がります</p>
                             </div>

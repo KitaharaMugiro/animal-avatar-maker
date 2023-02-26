@@ -8,6 +8,11 @@ export default async (req, res) => {
 
     const statusData = await getUserLatestStatus(user_id)
     if (statusData && statusData.status === "waiting") {
+        if (process.env.NODE_ENV === "production") {
+            await discord_notification(
+                `なんかおかしいリクエストがきたよ(user_id: ${user_id}, plan: ${plan}, mail: ${email}, class_name: ${class_name})`
+            )
+        }
         res.status(200).json({
             status: "already_waiting",
         })

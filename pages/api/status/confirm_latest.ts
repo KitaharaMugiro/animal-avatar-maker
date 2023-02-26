@@ -1,10 +1,10 @@
-import { request, gql } from 'graphql-request'
-import { hasuraRequest } from "../../../utils/hasura";
+import { request, gql } from "graphql-request"
+import { hasuraRequest } from "../../../utils/hasura"
 
 export const getUserLatestStatus = async (user_id) => {
     const query = gql`
         query ($user_id: String) {
-            wait_list(where: {user_id: {_eq: $user_id}}, order_by: {created_at: desc}, limit: 1) {
+            animal_wait_list(where: { user_id: { _eq: $user_id } }, order_by: { created_at: desc }, limit: 1) {
                 user_id
                 status
                 plan
@@ -15,7 +15,7 @@ export const getUserLatestStatus = async (user_id) => {
         }
     `
     const variables = {
-        user_id: user_id
+        user_id: user_id,
     }
     const hasuraResponse = await hasuraRequest(query, variables)
     if (hasuraResponse.wait_list.length === 0) {
@@ -29,13 +29,13 @@ export const getUserLatestStatus = async (user_id) => {
 }
 
 export default async (req, res) => {
-    const { user_id } = req.query;
+    const { user_id } = req.query
 
     //現在の最新のステータスを取得する
     const statusData = await getUserLatestStatus(user_id)
     if (!statusData) {
         res.status(200).json({
-            status: null
+            status: null,
         })
         return
     }
@@ -43,8 +43,8 @@ export default async (req, res) => {
     //もしwaitingであれば、何番目なのかも返す
     if (statusData.status === "waiting") {
         const query = gql`
-            query  {
-                wait_list(where: {status: {_eq: "waiting"}}, order_by: {created_at: asc}) {
+            query {
+                animal_wait_list(where: { status: { _eq: "waiting" } }, order_by: { created_at: asc }) {
                     user_id
                     plan
                     status
@@ -61,13 +61,11 @@ export default async (req, res) => {
         res.status(200).json({
             status: statusData,
             waiting_number: waiting_number,
-            your_number: your_number
+            your_number: your_number,
         })
-
     } else {
         res.status(200).json({
-            status: statusData
+            status: statusData,
         })
     }
-
-};
+}

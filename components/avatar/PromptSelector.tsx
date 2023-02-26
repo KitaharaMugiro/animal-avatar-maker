@@ -70,6 +70,9 @@ export default function PromptSelector(props: Props) {
         }
     }
 
+    const isPromptOk = prompt !== "" && prompt.match("MY_PET")
+    const borderColor = isPromptOk ? "border-2 border-green-500" : "border-2 border-red-500"
+
     return (
         <div>
             <p className="mb-1 flex justify-center px-6">作りたいイラストを選ぶ ({props.index}個目)</p>
@@ -90,7 +93,8 @@ export default function PromptSelector(props: Props) {
                     <span className="font-medium">{textError}</span>
                 </p>
             )}
-            <div className="mt-1 flex flex-wrap justify-center bg-slate-100 p-3">
+
+            <div className={`${borderColor} mt-1 flex flex-wrap justify-center bg-slate-100 p-3 `}>
                 {examples.length == 0 && (
                     <ReactLoading type="spin" color="#ebc634" height="70px" width="70px" className="mx-auto" />
                 )}

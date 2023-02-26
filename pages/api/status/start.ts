@@ -8,6 +8,11 @@ export default async (req, res) => {
 
     const statusData = await getUserLatestStatus(user_id)
     if (statusData && statusData.status === "waiting") {
+        if (process.env.NODE_ENV === "production") {
+            await discord_notification(
+                `なんかおかしいリクエストがきたよ(user_id: ${user_id}, plan: ${plan}, mail: ${email}, class_name: ${class_name})`
+            )
+        }
         res.status(200).json({
             status: "already_waiting",
         })
@@ -20,9 +25,9 @@ export default async (req, res) => {
             $class_name: String
             $plan: String
             $email: String
-            $data: [user_prompts_insert_input!]!
+            $data: [animal_user_prompts_insert_input!]!
         ) {
-            animal_insert_wait_list_one(
+            insert_animal_wait_list_one(
                 object: {
                     status: "waiting"
                     user_id: $user_id

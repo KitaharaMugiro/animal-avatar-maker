@@ -56,10 +56,11 @@ export default async (req, res) => {
     }
 
     const hasuraResponse = await hasuraRequest(query, variables)
+    const { animal_insert_wait_list_one } = hasuraResponse
     if (process.env.NODE_ENV === "production") {
         await discord_notification(
             `Waitリストにリクエストが追加されました。(user_id: ${user_id}, plan: ${plan}, mail: ${email}, class_name: ${class_name})`
         )
     }
-    res.status(200).json(hasuraResponse)
+    res.status(200).json({ res: animal_insert_wait_list_one })
 }

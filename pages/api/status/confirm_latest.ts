@@ -18,10 +18,10 @@ export const getUserLatestStatus = async (user_id) => {
         user_id: user_id,
     }
     const hasuraResponse = await hasuraRequest(query, variables)
-    if (hasuraResponse.wait_list.length === 0) {
+    if (hasuraResponse.animal_wait_list.length === 0) {
         return null
     }
-    const statusData = hasuraResponse.wait_list[0]
+    const statusData = hasuraResponse.animal_wait_list[0]
     if (!statusData) {
         return null
     }
@@ -56,8 +56,8 @@ export default async (req, res) => {
         `
 
         const hasuraResponse = await hasuraRequest(query)
-        const waiting_number = hasuraResponse.wait_list.length
-        const your_number = hasuraResponse.wait_list.findIndex((wait_list) => wait_list.user_id === user_id) + 1
+        const waiting_number = hasuraResponse.animal_wait_list.length
+        const your_number = hasuraResponse.animal_wait_list.findIndex((wait_list) => wait_list.user_id === user_id) + 1
         res.status(200).json({
             status: statusData,
             waiting_number: waiting_number,

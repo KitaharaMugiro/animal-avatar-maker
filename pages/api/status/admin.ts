@@ -15,7 +15,7 @@ export const getAllStatus = async () => {
         }
     `
     const hasuraResponse = await hasuraRequest(query)
-    return hasuraResponse.wait_list
+    return hasuraResponse.animal_wait_list
 }
 
 export default async (req, res) => {

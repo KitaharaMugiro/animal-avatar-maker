@@ -21,32 +21,32 @@ export default (props: Props) => {
         //YYYYMMDDで表示する
         const dateText = getYYYYMMDD(createdAt)
         if (status === "waiting" || status === "preparing" || status === "learning" || status === "generating") {
-            return <WaitingStatusCard
-                date={createdAt.toLocaleString()}
-                rank={statusData.your_number}
-                waiting={statusData.waiting_number}
-                plan={statusData.status.plan}
-                status={statusData.status.status}
-            />
+            return (
+                <WaitingStatusCard
+                    date={createdAt.toLocaleString()}
+                    rank={statusData.your_number}
+                    waiting={statusData.waiting_number}
+                    plan={statusData.status.plan}
+                    status={statusData.status.status}
+                />
+            )
         } else if (status === "generated" || status === "complete") {
             //TODO: ステータスが完了であればギャラリーに遷移するリンクと、追加で作成する選択肢を提示する
-            return <>
-                {/* <CreateNewAvatarCard name={name as string} /> */}
-                <GeneratedStatusCard
-                    date={createdAt.toLocaleString()}
-                    dateText={dateText}
-                    name={name as string}
-                    plan={statusData.status.plan}
-                />
-            </>
+            return (
+                <>
+                    {/* <CreateNewAvatarCard name={name as string} /> */}
+                    <GeneratedStatusCard
+                        date={createdAt.toLocaleString()}
+                        dateText={dateText}
+                        name={name as string}
+                        plan={statusData.status.plan}
+                    />
+                </>
+            )
         } else {
             return <CreateNewAvatarCard name={name as string} />
         }
     }
 
-    return (
-        <div className="m-5 ml-8 flex overflow-scroll">
-            {renderByStatus()}
-        </div>
-    )
+    return <div className="m-5 ml-8 flex overflow-scroll">{renderByStatus()}</div>
 }

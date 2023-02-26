@@ -25,9 +25,9 @@ export default async (req, res) => {
             $class_name: String
             $plan: String
             $email: String
-            $data: [user_prompts_insert_input!]!
+            $data: [animal_user_prompts_insert_input!]!
         ) {
-            animal_insert_wait_list_one(
+            insert_animal_wait_list_one(
                 object: {
                     status: "waiting"
                     user_id: $user_id

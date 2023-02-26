@@ -2,11 +2,11 @@ import { GetServerSideProps } from "next"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import NoAvatar from "../../components/avatar/AvatarGenerateForFreeCampaign"
-import { getInputImages } from "../../utils/getImages"
-import { CloudinaryImageProps } from "../../utils/types"
-import MyHeader from "../../components/common/MyHeader"
-import MyFooter from "../../components/common/MyFooter"
+import NoAvatar from "../../../components/avatar/AvatarGenerateForFreeCampaign"
+import { getInputImages } from "../../../utils/getImages"
+import { CloudinaryImageProps } from "../../../utils/types"
+import MyHeader from "../../../components/common/MyHeader"
+import MyFooter from "../../../components/common/MyFooter"
 
 export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const router = useRouter()

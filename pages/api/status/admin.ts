@@ -1,10 +1,10 @@
-import { request, gql } from 'graphql-request'
-import { hasuraRequest } from "../../../utils/hasura";
+import { request, gql } from "graphql-request"
+import { hasuraRequest } from "../../../utils/hasura"
 
 export const getAllStatus = async () => {
     const query = gql`
-        query  {
-            wait_list(where: {status: {_neq: "generated"}}, order_by: {created_at: asc}) {
+        query {
+            animal_wait_list(where: { status: { _neq: "generated" } }, order_by: { created_at: asc }) {
                 user_id
                 status
                 plan
@@ -22,6 +22,6 @@ export default async (req, res) => {
     //現在のgenerated以外のステータスを取得する
     const statusList = await getAllStatus()
     res.status(200).json({
-        statusList
+        statusList,
     })
-};
+}

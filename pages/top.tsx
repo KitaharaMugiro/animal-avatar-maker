@@ -1,10 +1,8 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import MyFooter from "../components/common/MyFooter"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
 import MyHeader from "../components/common/MyHeader"
 
 const Home: NextPage = () => {

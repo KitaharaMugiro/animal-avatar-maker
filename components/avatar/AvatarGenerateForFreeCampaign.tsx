@@ -99,14 +99,13 @@ export default (props: Props) => {
         }
         return (
             <div className="mt-10">
-                <div className="mx-auto mt-4 max-w-xl">
-                    <MailForm email={email} setEmail={setEmail} />
-                </div>
-
                 <div className="mt-4">
                     <MultiPromptSelectors prompts={prompts} setPrompts={setPrompts} use_num={prompt_use_num} />
                 </div>
 
+                <div className="mx-auto mt-4 max-w-xl">
+                    <MailForm email={email} setEmail={setEmail} />
+                </div>
                 {readyToCreate ? (
                     <div className="flex flex-col items-center">
                         <button

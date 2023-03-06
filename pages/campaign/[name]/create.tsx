@@ -3,6 +3,7 @@ import { FreeCampaignCreatePage } from "../../../components/create/FreeCampaignC
 import { getInputImages } from "../../../utils/getImages"
 import { CloudinaryImageProps } from "../../../utils/types"
 
+//TODO: Redirectでいいと思う
 export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     return <FreeCampaignCreatePage inputImages={inputImages} />
 }

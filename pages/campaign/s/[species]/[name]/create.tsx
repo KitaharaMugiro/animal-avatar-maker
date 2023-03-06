@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next"
-import { FreeCampaignCreatePage } from "../../../components/create/FreeCampaignCreatePage"
-import { getInputImages } from "../../../utils/getImages"
-import { CloudinaryImageProps } from "../../../utils/types"
+import { FreeCampaignCreatePage } from "../../../../../components/create/FreeCampaignCreatePage"
+import { getInputImages } from "../../../../../utils/getImages"
+import { CloudinaryImageProps } from "../../../../../utils/types"
 
 export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     return <FreeCampaignCreatePage inputImages={inputImages} />

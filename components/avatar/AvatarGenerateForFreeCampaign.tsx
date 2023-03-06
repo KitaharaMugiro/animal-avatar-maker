@@ -9,6 +9,7 @@ import Uploader from "./Uploader"
 
 interface Props {
     name: string
+    species: string
     inputImages: CloudinaryImageProps[]
 }
 
@@ -52,7 +53,7 @@ export default (props: Props) => {
                     user_id: props.name,
                     plan: plan,
                     email: email,
-                    class_name: "dog",
+                    class_name: props.species,
                     prompts: submitPrompts,
                 }),
             })

@@ -1,4 +1,4 @@
-import { Head } from "next/document"
+import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { CloudinaryImageProps } from "../../utils/types"

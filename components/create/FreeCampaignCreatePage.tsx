@@ -19,7 +19,15 @@ export const FreeCampaignCreatePage = ({ inputImages }: { inputImages: Cloudinar
                 //まだ完了でないならステータスページに飛ばす
                 console.log("なぜかリダイレクトする")
                 console.log({ data })
-                if (data.status && data.status !== "generated" && data.status !== "complete") {
+                // null -> そのまま
+                // generated, complete -> そのまま
+                // waiting, preparing, ... -> redirect
+                if (
+                    data.status == "waiting" ||
+                    data.status == "preparing" ||
+                    data.status == "learning" ||
+                    data.status == "generating"
+                ) {
                     router.push("/" + name + "/status")
                 }
             })

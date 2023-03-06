@@ -21,7 +21,7 @@ export const PlanConst: PlanConstType = {
         waitTime: "あり",
         price: 0,
         description: "フリープラン (0円)",
-        freeStyePromptNum: 2
+        freeStyePromptNum: 2,
     },
     standard: {
         name: "スタンダードプラン",
@@ -30,7 +30,7 @@ export const PlanConst: PlanConstType = {
         waitTime: "優先",
         price: 980,
         description: "スタンダードプラン (980円)",
-        freeStyePromptNum: 5
+        freeStyePromptNum: 5,
     },
     miniPack: {
         name: "ミニパックプラン",
@@ -39,7 +39,7 @@ export const PlanConst: PlanConstType = {
         waitTime: "優先",
         price: 0,
         description: "ミニパックプラン (0円)",
-        freeStyePromptNum: 0
+        freeStyePromptNum: 0,
     },
     standardPack: {
         name: "スタンダードパックプラン",
@@ -48,7 +48,7 @@ export const PlanConst: PlanConstType = {
         waitTime: "優先",
         price: 2980,
         description: "スタンダードパックプラン (2980円)",
-        freeStyePromptNum: 0
+        freeStyePromptNum: 0,
     },
 
     none: {
@@ -58,6 +58,6 @@ export const PlanConst: PlanConstType = {
         waitTime: "",
         price: 0,
         description: "プランを選んでね",
-        freeStyePromptNum: 0
-    }
+        freeStyePromptNum: 0,
+    },
 }

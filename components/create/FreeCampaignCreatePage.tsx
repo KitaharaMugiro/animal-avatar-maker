@@ -22,11 +22,12 @@ export const FreeCampaignCreatePage = ({ inputImages }: { inputImages: Cloudinar
                 // null -> そのまま
                 // generated, complete -> そのまま
                 // waiting, preparing, ... -> redirect
+                //WARN: データ構造がキモい
                 if (
-                    data.status == "waiting" ||
-                    data.status == "preparing" ||
-                    data.status == "learning" ||
-                    data.status == "generating"
+                    data.status.status == "waiting" ||
+                    data.status.status == "preparing" ||
+                    data.status.status == "learning" ||
+                    data.status.status == "generating"
                 ) {
                     router.push("/" + name + "/status")
                 }

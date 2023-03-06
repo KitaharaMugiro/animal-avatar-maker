@@ -1,17 +1,15 @@
-import { GetServerSideProps } from "next"
-import Head from "next/head"
+import { Head } from "next/document"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import NoAvatar from "../../components/avatar/AvatarGenerateWithPlanSelection"
-import { getInputImages } from "../../utils/getImages"
+import { useEffect } from "react"
 import { CloudinaryImageProps } from "../../utils/types"
-import MyHeader from "../../components/common/MyHeader"
-import MyFooter from "../../components/common/MyFooter"
+import AvatarGenerateForFreeCampaign from "../avatar/AvatarGenerateForFreeCampaign"
+import MyFooter from "../common/MyFooter"
+import MyHeader from "../common/MyHeader"
 
-//このページはいずれ消して、createディレクトリに移動させる
-export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
+export const FreeCampaignCreatePage = ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
     const router = useRouter()
-    const { name } = router.query
+    const { name, species } = router.query
+    const _species = species ? species : "dog"
 
     useEffect(() => {
         if (!name) return
@@ -34,20 +32,13 @@ export default ({ inputImages }: { inputImages: CloudinaryImageProps[] }) => {
                 <title>{title}</title>
             </Head>
             <MyHeader />
-            <NoAvatar name={name as string} inputImages={inputImages} />
+            <AvatarGenerateForFreeCampaign
+                species={_species as string}
+                name={name as string}
+                inputImages={inputImages}
+            />
             <div style={{ height: 200 }} />
             <MyFooter />
         </>
     )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    //URLからパラメータを取得
-    const { name } = context.params
-    const inputResults = await getInputImages(name as string)
-    return {
-        props: {
-            inputImages: inputResults,
-        },
-    }
 }

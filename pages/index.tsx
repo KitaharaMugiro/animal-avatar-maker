@@ -30,7 +30,7 @@ const Home: NextPage = () => {
             <div className="md:w-3/6 w-full mx-auto">
                 <h1 className={css_button}>お客様の声</h1>
                 <div className="py-5 p-auto container mx-auto">
-                    <img className="justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151218/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235ss259_a6fqqm.png" alt="" /><br /><br />
+                    <blockquote><p lang="ja" dir="ltr">オシャレがすぎる<a href="https://twitter.com/hashtag/%E3%82%A2%E3%83%8B%E3%83%9E%E3%83%AB%E3%82%A2%E3%83%90%E3%82%BF%E3%83%BC%E3%83%A1%E3%83%BC%E3%82%AB%E3%83%BC?src=hash&amp;ref_src=twsrc%5Etfw">#アニマルアバターメーカー</a> <a href="https://t.co/uCJlUx10OF">pic.twitter.com/uCJlUx10OF</a></p>&mdash; 希死念慮ちゃん (@kishinenryochan) <a href="https://twitter.com/kishinenryochan/status/1634802053561344000?ref_src=twsrc%5Etfw">March 12, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js"></script>
                     <img className="justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151423/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235647_xqt76b.png" alt="" />
                 </div>
             </div>

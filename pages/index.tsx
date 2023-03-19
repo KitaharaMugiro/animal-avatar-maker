@@ -30,8 +30,9 @@ const Home: NextPage = () => {
             <div className="md:w-3/6 w-full mx-auto">
                 <h1 className={css_button}>お客様の声</h1>
                 <div className="py-5 p-auto container mx-auto">
-                    <img className="justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151218/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235ss259_a6fqqm.png" alt="" /><br /><br />
-                    <img className="justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151423/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235647_xqt76b.png" alt="" />
+                    <img className="my-10 justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151218/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235ss259_a6fqqm.png" alt="" />
+                    <img className="my-10 justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151423/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235647_xqt76b.png" alt="" />
+                    <img className="mt-10 justify-center w-full" src="https://res.cloudinary.com/ddeqwb08j/image/upload/v1679151248/%E3%82%B9%E3%82%AF%E3%83%AA%E3%83%BC%E3%83%B3%E3%82%B7%E3%83%A7%E3%83%83%E3%83%88_2023-03-18_235120_ctaabl.png" alt="" />
                 </div>
             </div>
             <CreateButton />

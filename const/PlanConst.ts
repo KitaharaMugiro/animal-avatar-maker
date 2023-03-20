@@ -37,7 +37,7 @@ export const PlanConst: PlanConstType = {
         quantity: "30枚",
         quality: "高品質",
         waitTime: "優先",
-        price: 0,
+        price: 1280,
         description: "ミニパックプラン (0円)",
         freeStyePromptNum: 0,
     },
